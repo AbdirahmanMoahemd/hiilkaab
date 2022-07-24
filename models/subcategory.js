@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require("mongoose");
 
 const subCategorySchema = mongoose.Schema({
     name: {
@@ -16,9 +16,9 @@ const subCategorySchema = mongoose.Schema({
 subCategorySchema.method('toJSON', function(){
     const { __v, ...object } = this.toObject();
     const { _id:id, ...result } = object;
-    return { ...result, id };
+    return { ...result, id }; 
 });
 
-const SubCategory = mongoose.model('SubCategory', subCategorySchema)
 
-export default SubCategory
+const SubCategory = mongoose.model('SubCategory', subCategorySchema)
+module.exports = { SubCategory, subCategorySchema };

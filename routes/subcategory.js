@@ -33,4 +33,4 @@ subcategoryRouter.post("/admin/add-subcategory", admin, async (req, res) => {
 
 
 
-module.exports = categoryRouter;
+module.exports = subcategoryRouter;
