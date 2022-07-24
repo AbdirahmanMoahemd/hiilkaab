@@ -5,6 +5,7 @@ const adminRouter = require('./routes/admin');
 const { authRouter } = require('./routes/auth');
 const productRouter = require('./routes/product');
 const categoryRouter = require('./routes/categorey');
+const subcategoryRouter = require('./routes/subcategory');
 const userRouter = require('./routes/user');
 
 //init server
@@ -17,6 +18,7 @@ app.use(authRouter)
 app.use(adminRouter)
 app.use(productRouter)
 app.use(categoryRouter)
+app.use(subcategoryRouter)
 app.use(userRouter)
 
 //DB connection

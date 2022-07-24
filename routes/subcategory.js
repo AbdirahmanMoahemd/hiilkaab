@@ -1,0 +1,36 @@
+const express = require("express");
+const admin = require("../middlewares/admin");
+const subcategoryRouter = express.Router();
+const auth = require("../middlewares/auth");
+const { SubCategory } = require("../models/subcategory");
+
+subcategoryRouter.get("/api/subcategory/", auth, async (req, res) => {
+  try {
+    const subcategories = await SubCategory.find({  });
+    res.json(subcategories);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+subcategoryRouter.post("/admin/add-subcategory", admin, async (req, res) => {
+    try {
+      const { name, category} = req.body;
+      let subcategory = new SubCategory({
+        name,
+        category,
+        
+      });
+      subcategory = await subcategory.save();
+      res.json(subcategory);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+
+
+
+
+
+module.exports = categoryRouter;
