@@ -27,7 +27,36 @@ categoryRouter.post("/admin/add-category", admin, async (req, res) => {
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
-  });
+});
+
+
+categoryRouter.post("/admin/update-category", admin, async (req, res) => {
+  try {
+    const  {id, name, icon} = req.body; 
+    let category = await Category.findById(id);
+    if(category){
+        category.name = name;
+        category.icon = icon;
+        category = await category.save();
+        res.json(category);
+    }
+  } catch (e) {
+    res.status(404).json({ error: e.message });
+  }
+});
+
+
+
+// Delete the product
+categoryRouter.post("/admin/delete-category", admin, async (req, res) => {
+  try {
+    const { id } = req.body;
+    let category = await Category.findByIdAndDelete(id);
+    res.json(category);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 
 
