@@ -35,7 +35,7 @@ adminRouter.put("/admin/update-product", admin, async (req, res) => {
       product.quantity=quantity
       product.price=price
       product.category=category
-      product = await product.save();
+      product = await product.save(); 
       res.json(product);
     }
     else {
