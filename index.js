@@ -9,12 +9,12 @@ const subcategoryRouter = require('./routes/subcategory');
 const userRouter = require('./routes/user');
 
 //init server
-const app = express();
+const app = express();  
 const db_url = "mongodb+srv://developerkaahiye:kaahiye1234@cluster0.vowdb.mongodb.net/flutter_ecommerce?retryWrites=true&w=majority"
 
 //middleware
 app.use(express.json())
-app.use(authRouter)
+app.use(authRouter)  
 app.use(adminRouter)
 app.use(productRouter)
 app.use(categoryRouter)
