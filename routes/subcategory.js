@@ -4,7 +4,7 @@ const subcategoryRouter = express.Router();
 const auth = require("../middlewares/auth");
 const { SubCategory } = require("../models/subcategory");
 
-subcategoryRouter.get("/api/subcategory/", auth, async (req, res) => {
+subcategoryRouter.get("/api/subcategory", async (req, res) => {
   try {
     const subcategories = await SubCategory.find({  });
     res.json(subcategories);
