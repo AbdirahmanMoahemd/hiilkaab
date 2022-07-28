@@ -29,7 +29,7 @@ subcategoryRouter.post("/admin/add-subcategory", admin, async (req, res) => {
     }
   });
 
-  subcategoryRouter.post("/admin/update-subcategory", admin, async (req, res) => {
+  subcategoryRouter.put("/admin/update-subcategory", admin, async (req, res) => {
     try {
       const  {id, name, category} = req.body; 
       let subcategory = await SubCategory.findById(id);

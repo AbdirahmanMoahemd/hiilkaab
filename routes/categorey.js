@@ -30,7 +30,7 @@ categoryRouter.post("/admin/add-category", admin, async (req, res) => {
 });
 
 
-categoryRouter.post("/admin/update-category", admin, async (req, res) => {
+categoryRouter.put("/admin/update-category", admin, async (req, res) => {
   try {
     const  {id, name, icon} = req.body; 
     let category = await Category.findById(id);
