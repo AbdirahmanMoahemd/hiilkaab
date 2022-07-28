@@ -4,9 +4,9 @@ const categoryRouter = express.Router();
 const auth = require("../middlewares/auth");
 const { Category } = require("../models/category");
 
-categoryRouter.get("/api/category/", async (req, res) => {
+categoryRouter.get("/api/category", async (req, res) => {
   try {
-    const categories = await Category.find({  });
+    const categories = await Category.find({});
     res.json(categories);
   } catch (e) {
     res.status(500).json({ error: e.message });
