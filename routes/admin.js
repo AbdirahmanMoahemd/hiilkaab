@@ -53,7 +53,7 @@ adminRouter.put("/admin/update-product", admin, async (req, res) => {
 // Get all your products
 adminRouter.get("/admin/get-products", admin, async (req, res) => {
   try {
-    const products = await Product.find({});
+    const products = await Product.find({}).populate('category');
     res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
