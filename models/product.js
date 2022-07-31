@@ -27,6 +27,10 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  categoryid: {
+    type: String,
+    required: true,
+  },
   categories: [
     {
       category: categorySchema,

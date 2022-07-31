@@ -11,7 +11,8 @@ adminRouter.post("/admin/add-product", admin, async (req, res) => {
   try {
     const { name, description, images, quantity, price, categoryid } = req.body;
     let categories = []
-    let category =await Category.findById(categoryid)
+    let category = await Category.findById(categoryid)
+    
     categories.push({category})
     await category.save()
 
