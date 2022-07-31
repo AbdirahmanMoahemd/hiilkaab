@@ -31,11 +31,6 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  categories: [
-    {
-      category: categorySchema,
-    },
-  ],
   ratings: [ratingSchema],
 });
 

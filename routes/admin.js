@@ -10,11 +10,6 @@ const { Category } = require("../models/category");
 adminRouter.post("/admin/add-product", admin, async (req, res) => {
   try {
     const { name, description, images, quantity, price, categoryid } = req.body;
-    let categories = []
-    let category = await Category.findById(categoryid)
-    
-    categories.push({category})
-    await category.save()
 
     let product = new Product({
       name,
@@ -22,7 +17,7 @@ adminRouter.post("/admin/add-product", admin, async (req, res) => {
       images,
       quantity,
       price,
-      categories,
+      categoryid,
     });
     product = await product.save();
     res.json(product);
@@ -33,7 +28,7 @@ adminRouter.post("/admin/add-product", admin, async (req, res) => {
 
 adminRouter.put("/admin/update-product", admin, async (req, res) => {
   try {
-    const { id, name, description, images, quantity, price, category } = req.body;
+    const { id, name, description, images, quantity, price, categoryid } = req.body;
     let product = await Product.findById(id)
     if(product){
       product.name=name
@@ -41,7 +36,7 @@ adminRouter.put("/admin/update-product", admin, async (req, res) => {
       product.images=images
       product.quantity=quantity
       product.price=price
-      product.category=category
+      product.categoryid=categoryid
       product = await product.save(); 
       res.json(product);
     }
@@ -60,7 +55,7 @@ adminRouter.put("/admin/update-product", admin, async (req, res) => {
 // Get all your products
 adminRouter.get("/admin/get-products", admin, async (req, res) => {
   try {
-    const products = await Product.find({}).populate('category');
+    const products = await Product.find({});
     res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
