@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const ratingSchema = require("./rating");
+const { categorySchema } = require("../models/category");
 
 const productSchema = mongoose.Schema({
   name: {
@@ -26,11 +27,11 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category',
-    required:true
-},
+  categories: [
+    {
+      category: categorySchema,
+    },
+  ],
   ratings: [ratingSchema],
 });
 
