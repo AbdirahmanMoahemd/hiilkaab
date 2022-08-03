@@ -4,8 +4,9 @@ const subCategorySchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: true
     },
-    category: {
+    categoryid: {
         type: String,
         required: true,
     },

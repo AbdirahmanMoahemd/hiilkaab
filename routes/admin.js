@@ -9,15 +9,19 @@ const { Category } = require("../models/category");
 // Add product
 adminRouter.post("/admin/add-product", admin, async (req, res) => {
   try {
-    const { name, description, images, quantity, price, categoryid } = req.body;
+    const { name, description, images, countInStock, price, categoryid, subcategoryid,isDiscounted,newPrice,isFeatured  } = req.body;
 
     let product = new Product({
       name,
       description,
       images,
-      quantity,
+      countInStock,
       price,
       categoryid,
+      subcategoryid,
+      isDiscounted,
+      newPrice,
+      isFeatured
     });
     product = await product.save();
     res.json(product);
@@ -28,15 +32,19 @@ adminRouter.post("/admin/add-product", admin, async (req, res) => {
 
 adminRouter.put("/admin/update-product", admin, async (req, res) => {
   try {
-    const { id, name, description, images, quantity, price, categoryid } = req.body;
+    const { id,name, description, images, countInStock, price, categoryid, subcategoryid,isDiscounted,newPrice,isFeatured } = req.body;
     let product = await Product.findById(id)
     if(product){
       product.name=name
       product.description=description
       product.images=images
-      product.quantity=quantity
+      product.countInStock=countInStock
       product.price=price
       product.categoryid=categoryid
+      product.subcategoryid=subcategoryid
+      product.isDiscounted=isDiscounted
+      product.newPrice=newPrice
+      product.isFeatured=isFeatured
       product = await product.save(); 
       res.json(product);
     }

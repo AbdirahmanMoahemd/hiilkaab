@@ -17,6 +17,12 @@ subcategoryRouter.get("/api/subcategory", async (req, res) => {
 subcategoryRouter.post("/admin/add-subcategory", admin, async (req, res) => {
     try {
       const { name, category} = req.body;
+      const SubCategoryExists = await SubCategory.findOne({ name })
+
+      if (SubCategoryExists) {
+          res.status(400)
+          throw new Error('SubCategory already exists')
+      }
       let subcategory = new SubCategory({
         name,
         category,

@@ -19,10 +19,6 @@ const productSchema = mongoose.Schema({
       required: true,
     },
   ],
-  quantity: {
-    type: Number,
-    required: true,
-  },
   price: {
     type: Number,
     required: true,
@@ -31,7 +27,29 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  ratings: [ratingSchema],
+  subcategoryid: {
+    type: String,
+    required: true,
+  },
+  isDiscounted: {
+    type: Boolean,
+    default: false,
+  },
+  newPrice: {
+      type: Number,
+      required: true,
+      default: 0
+  },
+  countInStock: {
+      type: Number,
+      required: true,
+      default: 0
+  },
+  isFeatured: {
+      type: Boolean,
+      default: false,
+  },
+    ratings: [ratingSchema],
 });
 
 const Product = mongoose.model("Product", productSchema);

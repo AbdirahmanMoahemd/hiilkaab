@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
     required: true,
     type: String,
     trim: true,
+    unique: true,
     validate: {
       validator: (value) => {
         const re =
@@ -23,6 +24,9 @@ const userSchema = mongoose.Schema({
   password: {
     required: true,
     type: String,
+  },
+  phone: {
+    type: Number,
   },
   address: {
     type: String,

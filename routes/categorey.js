@@ -17,6 +17,12 @@ categoryRouter.get("/api/category", async (req, res) => {
 categoryRouter.post("/admin/add-category", admin, async (req, res) => {
     try {
       const { name, icon} = req.body;
+      const categoryExists = await Category.findOne({ name })
+
+      if (categoryExists) {
+          res.status(400)
+          throw new Error('category already exists')
+      }
       let category = new Category({
         name,
         icon,
