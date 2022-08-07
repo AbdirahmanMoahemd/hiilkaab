@@ -18,10 +18,11 @@ storeRouter.get("/api/store/", auth, async (req, res) => {
 // Add store
 storeRouter.post("/admin/add-store", admin, async (req, res) => {
     try {
-      const { name,status, message  } = req.body;
+      const { name,storetype,status, message  } = req.body;
   
       let store = new Store({
         name,
+        storetype,
         status,
         message
         

@@ -6,6 +6,11 @@ const StoreSchema = mongoose.Schema({
         required: true,
         unique: true
     },
+    storetype: {
+        type: String,
+        required: true,
+        unique: true
+    },
     status: {
         type: Boolean,
         default: false,
