@@ -6,6 +6,9 @@ const { authRouter } = require('./routes/auth');
 const productRouter = require('./routes/product');
 const categoryRouter = require('./routes/categorey');
 const subcategoryRouter = require('./routes/subcategory');
+const mealRouter = require('./routes/meal');
+const mealcategoryRouter = require('./routes/meal_category');
+const storeRouter = require('./routes/stores');
 const userRouter = require('./routes/user');
 
 //init server
@@ -20,6 +23,9 @@ app.use(productRouter)
 app.use(categoryRouter)
 app.use(subcategoryRouter)
 app.use(userRouter)
+app.use(mealRouter)
+app.use(mealcategoryRouter)
+app.use(storeRouter)
 
 //DB connection
 mongoose.connect(db_url).then( ()=>{

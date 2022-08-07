@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const ratingSchema = require("./rating");
 
-const productSchema = mongoose.Schema({
+const mealSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -22,11 +22,11 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  categoryid: {
+  mealcategoryid: {
     type: String,
     required: true,
   },
-  subcategoryid: {
+  mealcategoryname: {
     type: String,
     required: true,
   },
@@ -38,13 +38,13 @@ const productSchema = mongoose.Schema({
       type: Number,
       required: true,
   },
+  status: {
+      type: Boolean,
+      default: false,
+  },
   countInStock: {
       type: Number,
       required: true,
-  },
-  status: {
-    type: Boolean,
-    default: false,
   },
   isFeatured: {
       type: Boolean,
@@ -53,5 +53,5 @@ const productSchema = mongoose.Schema({
     ratings: [ratingSchema],
 });
 
-const Product = mongoose.model("Product", productSchema);
-module.exports = { Product, productSchema };
+const Meal = mongoose.model("Meal", mealSchema);
+module.exports = { Meal, mealSchema };
