@@ -5,7 +5,7 @@ const auth = require("../middlewares/auth");
 const { Store } = require("../models/stores");
 
 // get store
-storeRouter.get("/api/store/", auth, async (req, res) => {
+storeRouter.get("/api/store/", admin, async (req, res) => {
     try {
       const stores = await Store.find();
       res.json(stores);
