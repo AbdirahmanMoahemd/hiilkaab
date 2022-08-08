@@ -30,6 +30,12 @@ const restaurantSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    mealCategoryname: [
+        {
+                type: String,
+                required: true,
+        }
+      ],
     
     
 })
