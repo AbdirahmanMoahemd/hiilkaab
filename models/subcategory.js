@@ -10,6 +10,10 @@ const subCategorySchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    category: {
+        type: String,
+        required: true,
+    },
     
 })
 

@@ -16,7 +16,7 @@ subcategoryRouter.get("/api/subcategory", async (req, res) => {
 
 subcategoryRouter.post("/admin/add-subcategory", admin, async (req, res) => {
     try {
-      const { name, category} = req.body;
+      const { name,categoryid, category,} = req.body;
       const SubCategoryExists = await SubCategory.findOne({ name })
 
       if (SubCategoryExists) {
@@ -25,6 +25,7 @@ subcategoryRouter.post("/admin/add-subcategory", admin, async (req, res) => {
       }
       let subcategory = new SubCategory({
         name,
+        categoryid,
         category,
         
       });
@@ -37,10 +38,11 @@ subcategoryRouter.post("/admin/add-subcategory", admin, async (req, res) => {
 
   subcategoryRouter.put("/admin/update-subcategory", admin, async (req, res) => {
     try {
-      const  {id, name, category} = req.body; 
+      const  {id, name,categoryid, category} = req.body; 
       let subcategory = await SubCategory.findById(id);
       if(subcategory){
           subcategory.name = name;
+          subcategory.categoryid=categoryid
           subcategory.category = category;
           subcategory = await subcategory.save();
           res.json(subcategory);
