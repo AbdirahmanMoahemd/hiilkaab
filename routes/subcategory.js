@@ -13,7 +13,7 @@ subcategoryRouter.get("/api/subcategory", async (req, res) => {
   }
 });
 
-subcategoryRouter.get("/api/subcategory/category", async (req, res) => {
+subcategoryRouter.post("/api/subcategory/category", async (req, res) => {
   try {
     const { category } = req.body;
     const subcategories = await SubCategory.findOne({ category });
