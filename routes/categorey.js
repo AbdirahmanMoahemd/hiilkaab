@@ -14,6 +14,8 @@ categoryRouter.get("/api/category", async (req, res) => {
 });
 
 
+
+
 categoryRouter.post("/admin/add-category", admin, async (req, res) => {
     try {
       const { name, icon} = req.body;

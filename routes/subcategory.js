@@ -13,6 +13,21 @@ subcategoryRouter.get("/api/subcategory", async (req, res) => {
   }
 });
 
+subcategoryRouter.get("/api/subcategory/category", async (req, res) => {
+  try {
+    const { category } = req.body;
+    const subcategories = await SubCategory.findOne({ category });
+
+    if(subcategories){
+      res.json(subcategories);
+    }
+
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 
 subcategoryRouter.post("/admin/add-subcategory", admin, async (req, res) => {
     try {
