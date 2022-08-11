@@ -9,12 +9,13 @@ const { Category } = require("../models/category");
 // Add product
 adminRouter.post("/admin/add-product", admin, async (req, res) => {
   try {
-    const { name, description, images, countInStock,status, price, categoryid, subcategoryid,isDiscounted,newPrice,isFeatured  } = req.body;
+    const { name, description, images, countInStock,status,sizes, price, categoryid, subcategoryid,isDiscounted,newPrice,isFeatured  } = req.body;
 
     let product = new Product({
       name,
       description,
       images,
+      sizes,
       countInStock,
       price,
       status,
