@@ -26,7 +26,7 @@ const productSchema = mongoose.Schema({
   ],
   colors: [
     {
-      type: String,
+      type: Number,
       
     }
   ],
