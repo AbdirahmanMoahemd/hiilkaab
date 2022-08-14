@@ -9,6 +9,7 @@ const subcategoryRouter = require('./routes/subcategory');
 const mealRouter = require('./routes/meal');
 const mealcategoryRouter = require('./routes/meal_category');
 const restaurantRouter = require('./routes/restuarants');
+const coffeeRouter = require('./routes/coffee');
 const userRouter = require('./routes/user');
 
 //init server
@@ -26,6 +27,7 @@ app.use(userRouter)
 app.use(mealRouter)
 app.use(mealcategoryRouter)
 app.use(restaurantRouter)
+app.use(coffeeRouter)
 
 //DB connection
 mongoose.connect(db_url).then( ()=>{
