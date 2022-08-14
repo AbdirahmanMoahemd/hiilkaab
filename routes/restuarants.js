@@ -18,7 +18,7 @@ restaurantRouter.get("/api/restaurants/", auth, async (req, res) => {
 // Add restaurant
 restaurantRouter.post("/admin/add-restaurant", admin, async (req, res) => {
     try {
-      const { name,logo,banner,location,time,status,message,mealCategoryname  } = req.body;
+      const { name,logo,banner,location,time,status,message } = req.body;
   
       let restaurant = new Restaurant({
         name,
@@ -28,7 +28,6 @@ restaurantRouter.post("/admin/add-restaurant", admin, async (req, res) => {
         time,
         status,
         message,
-        mealCategoryname
         
       });
       restaurant = await restaurant.save();
@@ -42,7 +41,7 @@ restaurantRouter.post("/admin/add-restaurant", admin, async (req, res) => {
 
 restaurantRouter.put("/admin/update-restaurant", admin, async (req, res) => {
   try {
-    const  {id, name,logo,banner,location,time,status,message,mealCategoryname} = req.body; 
+    const  {id, name,logo,banner,location,time,status,message} = req.body; 
     let restaurant = await Restaurant.findById(id);
     if(store){
         restaurant.name = name;
@@ -52,7 +51,6 @@ restaurantRouter.put("/admin/update-restaurant", admin, async (req, res) => {
         restaurant.time = time;
         restaurant.status = status;
         restaurant.message = message;
-        restaurant.mealCategoryname=mealCategoryname
         restaurant = await restaurant.save();
         res.json(restaurant);
     }
