@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 
 const MealCategorySchema = mongoose.Schema({
-    name: {
+    name:[ {
         type: String,
         required: true,
         unique: true
+    },],
+    restaurant:{
+        type: String,
+        required: true,
     },
-    
     
 })
 
