@@ -10,6 +10,7 @@ const mealRouter = require('./routes/meal');
 const mealcategoryRouter = require('./routes/meal_category');
 const restaurantRouter = require('./routes/restuarants');
 const coffeeRouter = require('./routes/coffee');
+const sweetsRouter = require('./routes/sweets');
 const userRouter = require('./routes/user');
 
 //init server
@@ -27,6 +28,7 @@ app.use(userRouter)
 app.use(mealRouter)
 app.use(mealcategoryRouter)
 app.use(restaurantRouter)
+app.use(sweetsRouter)
 app.use(coffeeRouter)
 
 //DB connection

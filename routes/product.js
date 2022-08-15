@@ -12,6 +12,28 @@ productRouter.get("/api/products/", auth, async (req, res) => {
   }
 });
 
+
+productRouter.get("/api/products/search", auth, async (req, res) => {
+
+
+  try {
+    const keyword = req.query.keyword ? {
+      name: {
+        $regex: req.query.keyword,
+        $options: 'i'
+      }, 
+    } : {}
+  
+    const products = await Product.find({ ...keyword, });
+    products.sort((a, b) => (a._id > b._id) ? -1 : 1)
+
+    res.json(products)  
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+ 
+})
+
 productRouter.get("/api/products/deal-of-day", auth, async (req, res) => {
   try {
     const products = await Product.find({isDiscounted:true });

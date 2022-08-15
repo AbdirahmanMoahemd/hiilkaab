@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const coffeeSchema = mongoose.Schema({
+const sweetsSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -36,12 +36,12 @@ const coffeeSchema = mongoose.Schema({
 })
 
 
-coffeeSchema.method('toJSON', function(){
+sweetsSchema.method('toJSON', function(){
     const { __v, ...object } = this.toObject();
     const { _id:id, ...result } = object;
     return { ...result, id }; 
 });
 
 
-const Coffee = mongoose.model('Coffee', coffeeSchema)
-module.exports = { Coffee, coffeeSchema };
+const Sweets = mongoose.model('Sweets', sweetsSchema)
+module.exports = { Sweets, sweetsSchema };
