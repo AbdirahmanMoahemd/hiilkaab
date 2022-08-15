@@ -5,7 +5,7 @@ const auth = require("../middlewares/auth");
 const { Sweets } = require("../models/sweets");
 
 // get sweets
-sweetsRouter.get("/api/sweetss/", auth, async (req, res) => {
+sweetsRouter.get("/api/sweets/", auth, async (req, res) => {
     try {
       const sweetss = await Sweets.find();
       res.json(sweetss);
