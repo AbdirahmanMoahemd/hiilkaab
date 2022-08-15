@@ -43,7 +43,7 @@ coffeeRouter.put("/admin/update-coffee", admin, async (req, res) => {
   try {
     const  {id, name,logo,banner,location,time,status,message} = req.body; 
     let coffee = await Coffee.findById(id);
-    if(store){
+    if(coffee){
         coffee.name = name;
         coffee.logo = logo;
         coffee.banner = banner;

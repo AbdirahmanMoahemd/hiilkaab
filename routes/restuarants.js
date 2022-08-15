@@ -43,7 +43,7 @@ restaurantRouter.put("/admin/update-restaurant", admin, async (req, res) => {
   try {
     const  {id, name,logo,banner,location,time,status,message} = req.body; 
     let restaurant = await Restaurant.findById(id);
-    if(store){
+    if(restaurant){
         restaurant.name = name;
         restaurant.logo = logo;
         restaurant.banner = banner;

@@ -43,7 +43,7 @@ sweetsRouter.put("/admin/update-sweets", admin, async (req, res) => {
   try {
     const  {id, name,logo,banner,location,time,status,message} = req.body; 
     let sweets = await Sweets.findById(id);
-    if(store){
+    if(sweets){
         sweets.name = name;
         sweets.logo = logo;
         sweets.banner = banner;
