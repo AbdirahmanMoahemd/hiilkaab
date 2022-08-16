@@ -3,13 +3,15 @@ const mealcategoryRouter = express.Router();
 const admin = require("../middlewares/admin");
 const auth = require("../middlewares/auth");
 const { MealCategory } = require("../models/meal_category");
-const { Store } = require("../models/stores");
 
 // get mealcategoryRouter
 mealcategoryRouter.get("/api/mealcategory/", auth, async (req, res) => {
     try {
+      
       const mealcategory = await MealCategory.find();
+
       res.json(mealcategory);
+
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
@@ -19,11 +21,11 @@ mealcategoryRouter.get("/api/mealcategory/", auth, async (req, res) => {
 // Add mealcategoryRouter
 mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
     try {
-      const { name  } = req.body;
+      const { name ,restaurant } = req.body;
   
       let mealcategory = new MealCategory({
         name,
-        
+        restaurant
       });
       mealcategory = await mealcategory.save();
       res.json(mealcategory);
@@ -36,11 +38,11 @@ mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
 
 mealcategoryRouter.put("/admin/update-mealcategory", admin, async (req, res) => {
   try {
-    const  {id, name} = req.body; 
+    const  {id, name ,restaurant} = req.body; 
     let mealcategory = await MealCategory.findById(id);
     if(mealcategory){
         mealcategory.name = name;
-        
+        mealcategory.restaurant = restaurant;
         mealcategory = await mealcategory.save();
         res.json(mealcategory);
     }
