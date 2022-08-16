@@ -22,7 +22,11 @@ const mealSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  mealcategoryid: {
+  ingredients:{
+    type: String,
+    required: true,
+  },
+  restaurants: {
     type: String,
     required: true,
   },
@@ -42,15 +46,11 @@ const mealSchema = mongoose.Schema({
       type: Boolean,
       default: false,
   },
-  countInStock: {
-      type: Number,
-      required: true,
-  },
   isFeatured: {
       type: Boolean,
       default: false,
   },
-    ratings: [ratingSchema],
+  ratings: [ratingSchema],
 });
 
 const Meal = mongoose.model("Meal", mealSchema);
