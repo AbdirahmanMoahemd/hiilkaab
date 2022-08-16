@@ -22,10 +22,12 @@ const mealSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  ingredients:{
-    type: String,
-    required: true,
-  },
+  ingredients:[
+    {
+      type: String,
+      required: true,
+    },
+  ],
   restaurants: {
     type: String,
     required: true,
