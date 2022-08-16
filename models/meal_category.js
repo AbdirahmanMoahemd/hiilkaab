@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const MealCategorySchema = mongoose.Schema({
-    name:[ {
+    names:[ {
         type: String,
         required: true,
-        unique: true
     },],
     restaurant:{
         type: String,

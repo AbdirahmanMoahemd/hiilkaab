@@ -7,7 +7,7 @@ const { MealCategory } = require("../models/meal_category");
 // get mealcategoryRouter
 mealcategoryRouter.get("/api/mealcategory/", auth, async (req, res) => {
     try {
-      
+
       const mealcategory = await MealCategory.find();
 
       res.json(mealcategory);
@@ -21,10 +21,10 @@ mealcategoryRouter.get("/api/mealcategory/", auth, async (req, res) => {
 // Add mealcategoryRouter
 mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
     try {
-      const { name ,restaurant } = req.body;
+      const { names ,restaurant } = req.body;
   
       let mealcategory = new MealCategory({
-        name,
+        names,
         restaurant
       });
       mealcategory = await mealcategory.save();
