@@ -12,6 +12,20 @@ productRouter.get("/api/products/", auth, async (req, res) => {
   }
 });
 
+productRouter.get("/api/products/:id", async (req, res) => {
+  try {
+    const products = await Product.findById(req.params.id);
+
+    if(products){
+      res.json(products);
+    }
+
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 
 productRouter.get("/api/products/search", auth, async (req, res) => {
 
