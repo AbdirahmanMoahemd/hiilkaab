@@ -1,3 +1,4 @@
+const { query } = require("express");
 const express = require("express");
 const mealcategoryRouter = express.Router();
 const admin = require("../middlewares/admin");
@@ -15,6 +16,21 @@ mealcategoryRouter.get("/api/mealcategory/", auth, async (req, res) => {
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
+});
+
+// get mealcategoryRouter
+mealcategoryRouter.post("/api/mealcategory/byrestaurant", async (req, res) => {
+  try {
+    const { query } = req.body;
+
+    const mealcategory = await MealCategory.find({restaurant:query});
+    if (mealcategory) {
+    res.json(mealcategory);
+    }
+
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
 
