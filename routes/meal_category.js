@@ -33,6 +33,20 @@ mealcategoryRouter.post("/api/mealcategory/byrestaurant", async (req, res) => {
   }
 });
 
+mealcategoryRouter.get("/api/mealcategory/:id", async (req, res) => {
+  try {
+    const mealcategory = await MealCategory.findById(req.params.id);
+
+    if(mealcategory){
+      res.json(mealcategory);
+    }
+
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 
 // Add mealcategoryRouter
 mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
