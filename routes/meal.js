@@ -15,6 +15,20 @@ mealRouter.get("/api/meals/", auth, async (req, res) => {
   
 });
 
+mealRouter.get("/api/meals/:id", async (req, res) => {
+  try {
+    const meals = await Meal.findById(req.params.id);
+
+    if(meals){
+      res.json(meals);
+    }
+
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 
 // Add product
 mealRouter.post("/admin/add-meal", admin, async (req, res) => {
