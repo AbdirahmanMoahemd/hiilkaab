@@ -68,10 +68,10 @@ mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
 
 mealcategoryRouter.put("/admin/update-mealcategory", admin, async (req, res) => {
   try {
-    const  {id, name ,restaurant} = req.body; 
+    const  {id, names ,restaurant} = req.body; 
     let mealcategory = await MealCategory.findById(id);
     if(mealcategory){
-        mealcategory.name = name;
+        mealcategory.names = names;
         mealcategory.restaurant = restaurant;
         mealcategory = await mealcategory.save();
         res.json(mealcategory);
