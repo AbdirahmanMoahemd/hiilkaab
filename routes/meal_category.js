@@ -49,16 +49,16 @@ mealcategoryRouter.get("/api/mealcategory/:id", async (req, res) => {
 
 
 // Add mealcategoryRouter
-mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
+mealcategoryRouter.post("/admin/add-mealcategory", async (req, res) => {
     try {
-      const { names ,restaurant } = req.body;
   
-      let mealcategory = new MealCategory({
-        names,
-        restaurant
+      const mealcategory = new MealCategory({
+        names:req.body.names,
+        restaurant:req.body.restaurant
       });
-      mealcategory = await mealcategory.save();
-      res.json(mealcategory);
+      
+      const createdmealcategory = await mealcategory.save()
+      res.status(201).json(createdmealcategory)
 
     } catch (e) {
       res.status(500).json({ error: e.message });
