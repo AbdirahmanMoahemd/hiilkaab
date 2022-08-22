@@ -29,9 +29,10 @@ mealRouter.get("/api/meals/:id", async (req, res) => {
   }
 });
 
-mealRouter.get("/api/meals/:storetype", async (req, res) => {
+mealRouter.post("/api/meals/store", async (req, res) => {
   try {
-    const meals = await Meal.find(req.params.storetype);
+    const { query } = req.body;
+    const meals = await Meal.find({storetype:query});
 
     if(meals){
       res.json(meals);
