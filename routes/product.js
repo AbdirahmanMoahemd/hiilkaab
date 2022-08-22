@@ -45,8 +45,11 @@ productRouter.get("/products/search/:name", auth, async (req, res) => {
     const products = await Product.find({
       name: { $regex: req.params.name, $options: "i" },
     });
+    if(products){
+      res.json(products);
 
-    res.json(products);
+    }
+
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
