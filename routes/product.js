@@ -40,7 +40,7 @@ productRouter.get("/products/deal_of_day", async (req, res) => {
 
 // create a get request to search products and get them
 // /api/products/search/i
-productRouter.get("/api/products/search/:name", auth, async (req, res) => {
+productRouter.get("/products/search/:name", auth, async (req, res) => {
   try {
     const products = await Product.find({
       name: { $regex: req.params.name, $options: "i" },
