@@ -28,6 +28,10 @@ const mealSchema = mongoose.Schema({
       required: true,
     },
   ],
+  storetype:{
+    type: String,
+    required: true,
+  },
   restaurants: {
     type: String,
     required: true,

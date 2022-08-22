@@ -33,7 +33,7 @@ mealRouter.get("/api/meals/:id", async (req, res) => {
 // Add product
 mealRouter.post("/admin/add-meal", admin, async (req, res) => {
     try {
-      const { name, description, images, ingredients,status, price, restaurants, mealcategoryname,isDiscounted,newPrice,isFeatured  } = req.body;
+      const { name, description, images, ingredients,storetype,status, price, restaurants, mealcategoryname,isDiscounted,newPrice,isFeatured  } = req.body;
   
       let meal = new Meal({
         name,
@@ -41,6 +41,7 @@ mealRouter.post("/admin/add-meal", admin, async (req, res) => {
         images,
         status,
         price,
+        storetype,
         ingredients,
         restaurants,
         mealcategoryname,
@@ -58,7 +59,7 @@ mealRouter.post("/admin/add-meal", admin, async (req, res) => {
 
 mealRouter.put("/admin/update-meal", admin, async (req, res) => {
     try {
-      const { id, name, description, images, ingredients,status, price, restaurants, mealcategoryname,isDiscounted,newPrice,isFeatured  } = req.body;
+      const { id, name, description, images, ingredients,status,storetype, price, restaurants, mealcategoryname,isDiscounted,newPrice,isFeatured  } = req.body;
       let meal = await Meal.findById(id)
       if(meal){
         meal.name=name
@@ -66,6 +67,7 @@ mealRouter.put("/admin/update-meal", admin, async (req, res) => {
         meal.images=images
         meal.status=status
         meal.price=price
+        meal.storetype=storetype
         meal.ingredients=ingredients
         meal.restaurants=restaurants
         meal.mealcategoryname=mealcategoryname
