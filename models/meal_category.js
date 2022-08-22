@@ -16,6 +16,11 @@ const MealCategorySchema = mongoose.Schema({
 })
 
 
+MealCategorySchema.method('toJSON', function(){
+    const { __v, ...object } = this.toObject();
+    const { _id:id, ...result } = object;
+    return { ...result, id }; 
+});
 
 
 const MealCategory = mongoose.model('MealCategory', MealCategorySchema)
