@@ -29,7 +29,7 @@ mealRouter.get("/api/meals/:id", async (req, res) => {
   }
 });
 
-mealRouter.get("/api/meals/storetype", async (req, res) => {
+mealRouter.get("/api/meals/:storetype", async (req, res) => {
   try {
     const meals = await Meal.find(req.params.storetype);
 
