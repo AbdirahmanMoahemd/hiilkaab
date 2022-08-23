@@ -15,6 +15,21 @@ coffeeRouter.get("/api/coffees/", auth, async (req, res) => {
 });
 
 
+coffeeRouter.get("/api/coffees/:id", async (req, res) => {
+  try {
+    const coffee = await Coffee.findById(req.params.id);
+
+    if(coffee){
+      res.json(coffee);
+    }
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
 // Add coffee
 coffeeRouter.post("/admin/add-coffee", admin, async (req, res) => {
     try {

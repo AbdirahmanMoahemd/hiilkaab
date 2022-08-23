@@ -15,6 +15,21 @@ sweetsRouter.get("/api/sweets/", auth, async (req, res) => {
 });
 
 
+sweetsRouter.get("/api/sweets/:id", async (req, res) => {
+  try {
+    const sweet = await Sweets.findById(req.params.id);
+
+    if(sweet){
+      res.json(sweet);
+    }
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
 // Add sweets
 sweetsRouter.post("/admin/add-sweets", admin, async (req, res) => {
     try {

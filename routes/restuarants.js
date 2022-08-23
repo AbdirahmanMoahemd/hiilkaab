@@ -15,6 +15,21 @@ restaurantRouter.get("/api/restaurants/", auth, async (req, res) => {
 });
 
 
+restaurantRouter.get("/api/restaurants/:id", async (req, res) => {
+  try {
+    const restaurant = await Restaurant.findById(req.params.id);
+
+    if(restaurant){
+      res.json(restaurant);
+    }
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
 // Add restaurant
 restaurantRouter.post("/admin/add-restaurant", admin, async (req, res) => {
     try {
