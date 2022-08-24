@@ -52,13 +52,19 @@ mealcategoryRouter.get("/api/mealcategory/:id", async (req, res) => {
 mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
     try {
       const { names ,restaurant } = req.body;
+
+      const restaurantExists = await User.findOne({restaurant});
+      if(restaurantExists){
+          return res.status(400).json({msg:'This restaurant already has a category'})
+      }else{
+        let mealcategory = new MealCategory({
+          names,
+          restaurant
+        });
+        mealcategory = await mealcategory.save();
+        res.json(mealcategory);
+      }
   
-      let mealcategory = new MealCategory({
-        names,
-        restaurant
-      });
-      mealcategory = await mealcategory.save();
-      res.json(mealcategory);
 
     } catch (e) {
       res.status(500).json({ error: e.message });
