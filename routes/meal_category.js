@@ -53,7 +53,7 @@ mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
     try {
       const { names ,restaurant } = req.body;
 
-      const restaurantExists = await User.findOne({restaurant});
+      const restaurantExists = await MealCategory.findOne({restaurant});
       if(restaurantExists){
           return res.status(400).json({msg:'This restaurant already has a category'})
       }else{
