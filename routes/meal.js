@@ -45,6 +45,22 @@ mealRouter.post("/api/meals/store", async (req, res) => {
 });
 
 
+mealRouter.post("/api/meals/bycategory", async (req, res) => {
+  try {
+    const { query } = req.body;
+    const meals = await Meal.find({mealcategoryname:query});
+
+    if(meals){
+      res.json(meals);
+    }
+
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 // Add product
 mealRouter.post("/admin/add-meal", admin, async (req, res) => {
     try {
