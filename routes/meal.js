@@ -45,10 +45,10 @@ mealRouter.post("/api/meals/store", async (req, res) => {
 });
 
 
-mealRouter.post("/api/meals/bycategory", async (req, res) => {
+mealRouter.post("/api/meals/bycategory", auth, async (req, res) => {
   try {
-    const { query } = req.body;
-    const meals = await Meal.find({mealcategoryname:query});
+    const { query , query2} = req.body;
+    const meals = await Meal.find({mealcategoryname:query, storetype:query2});
 
     if(meals){
       res.json(meals);
