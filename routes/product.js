@@ -26,12 +26,10 @@ productRouter.get("/api/products/:id", async (req, res) => {
   }
 });
 
-
-
-
-productRouter.get("/products/deal_of_day", async (req, res) => {
+productRouter.get("/api/products/wanted",  async (req, res) => {
   try {
-    let products = await Product.find({isDiscounted:true});
+    let products = await Product.find({});
+
     products = products.sort((a, b) => {
       let aSum = 0;
       let bSum = 0;
@@ -45,7 +43,23 @@ productRouter.get("/products/deal_of_day", async (req, res) => {
       }
       return aSum < bSum ? 1 : -1;
     });
+
     res.json(products[0]);
+
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
+
+
+
+productRouter.get("/products/deal_of_day", async (req, res) => {
+  try {
+    const products = await Product.find({isDiscounted:true});
+    res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
