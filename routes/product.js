@@ -26,7 +26,7 @@ productRouter.get("/api/products/:id", async (req, res) => {
   }
 });
 
-productRouter.get("/api/products/wanted",  async (req, res) => {
+productRouter.get("/api/top-products/",  async (req, res) => {
   try {
     let products = await Product.find({});
 
@@ -102,10 +102,13 @@ productRouter.post("/api/rate-product", auth, async (req, res) => {
       userId: req.user,
       rating,
     };
+   
 
     product.ratings.push(ratingSchema);
-    product = await product.save();
+      product.rating=rating
+      product = await product.save();
     res.json(product);
+    
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
