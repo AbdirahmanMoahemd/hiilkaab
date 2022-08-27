@@ -31,8 +31,21 @@ productRouter.get("/api/products/:id", async (req, res) => {
 
 productRouter.get("/products/deal_of_day", async (req, res) => {
   try {
-    const products = await Product.find({isDiscounted:true});
-    res.json(products);
+    let products = await Product.find({isDiscounted:true});
+    products = products.sort((a, b) => {
+      let aSum = 0;
+      let bSum = 0;
+
+      for (let i = 0; i < a.ratings.length; i++) {
+        aSum += a.ratings[i].rating;
+      }
+
+      for (let i = 0; i < b.ratings.length; i++) {
+        bSum += b.ratings[i].rating;
+      }
+      return aSum < bSum ? 1 : -1;
+    });
+    res.json(products[0]);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -54,6 +67,9 @@ productRouter.get("/products/search/:name", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+
+
 
 // create a post request route to rate the product.
 productRouter.post("/api/rate-product", auth, async (req, res) => {
