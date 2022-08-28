@@ -75,6 +75,27 @@ userRouter.post("/api/add-to-cartMeal", auth, async (req, res) => {
 
 
 
+userRouter.post("/api/increas-from-cartMeal/:id", auth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const meal = await Meal.findById(id);
+    let user = await User.findById(req.user);
+
+    for (let i = 0; i < user.cartMeal.length; i++) {
+      if (user.cartMeal[i].meal._id.equals(meal._id)) {
+        if (user.cartMeal[i].quantity == 1) {
+          user.cartMeal.splice(i, 1);
+        } else {
+          user.cartMeal[i].quantity += 1;
+        }
+      }
+    }
+    user = await user.save();
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 
 
