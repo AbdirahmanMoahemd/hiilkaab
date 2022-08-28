@@ -1,6 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
 const auth = require("../middlewares/auth");
+const { Meal } = require("../models/meal");
 const Order = require("../models/order");
 const { Product } = require("../models/product");
 const User = require("../models/user");
@@ -37,6 +38,45 @@ userRouter.post("/api/add-to-cart", auth, async (req, res) => {
   }
 });
 
+
+
+
+userRouter.post("/api/add-to-cartMeal", auth, async (req, res) => {
+  try {
+    const { id, quantity } = req.body;
+    const meal = await Meal.findById(id);
+    let user = await User.findById(req.user);
+
+    // if (user.cartMeal.length == 0) {
+      user.cartMeal.push({ meal, quantity: quantity });
+    // } else {
+    //   let isMealFound = false;
+    //   for (let i = 0; i < user.cartMeal.length; i++) {
+    //     if (user.cart[i].meal._id.equals(meal._id)) {
+    //       isMealFound = true;
+    //     }
+    //   }
+
+      // if (isMealFound) {
+      //   let producttt = user.cartMeal.find((productt) =>
+      //     productt.meal._id.equals(meal._id)
+      //   );
+      //   producttt.quantity += 1;
+      // } else {
+       // user.cartMeal.push({ meal, quantity: 1 });
+    //   }
+    // }
+    user = await user.save();
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
+
+
 userRouter.delete("/api/remove-from-cart/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
@@ -58,6 +98,33 @@ userRouter.delete("/api/remove-from-cart/:id", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+
+
+
+userRouter.delete("/api/remove-from-cartMeal/:id", auth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const meal = await Meal.findById(id);
+    let user = await User.findById(req.user);
+
+    for (let i = 0; i < user.cart.length; i++) {
+      if (user.cart[i].meal._id.equals(meal._id)) {
+        if (user.cart[i].quantity == 1) {
+          user.cart.splice(i, 1);
+        } else {
+          user.cart[i].quantity -= 1;
+        }
+      }
+    }
+    user = await user.save();
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 
 // save user address
 userRouter.post("/api/save-user-address", auth, async (req, res) => {

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { mealSchema } = require("./meal");
 const { productSchema } = require("./product");
 
 const userSchema = mongoose.Schema({
@@ -39,6 +40,15 @@ const userSchema = mongoose.Schema({
   cart: [
     {
       product: productSchema,
+      quantity: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
+  cartMeal: [
+    {
+      meal: mealSchema,
       quantity: {
         type: Number,
         required: true,
