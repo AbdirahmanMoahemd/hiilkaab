@@ -47,25 +47,25 @@ userRouter.post("/api/add-to-cartMeal", auth, async (req, res) => {
     const meal = await Meal.findById(id);
     let user = await User.findById(req.user);
 
-    // if (user.cartMeal.length == 0) {
+    if (user.cartMeal.length == 0) {
       user.cartMeal.push({ meal, quantity: quantity });
-    // } else {
-    //   let isMealFound = false;
-    //   for (let i = 0; i < user.cartMeal.length; i++) {
-    //     if (user.cart[i].meal._id.equals(meal._id)) {
-    //       isMealFound = true;
-    //     }
-    //   }
+    } else {
+      let isMealFound = false;
+      for (let i = 0; i < user.cartMeal.length; i++) {
+        if (user.cartMeal[i].meal._id.equals(meal._id)) {
+          isMealFound = true;
+        }
+      }
 
-      // if (isMealFound) {
-      //   let producttt = user.cartMeal.find((productt) =>
-      //     productt.meal._id.equals(meal._id)
-      //   );
-      //   producttt.quantity += 1;
-      // } else {
-       // user.cartMeal.push({ meal, quantity: 1 });
-    //   }
-    // }
+      if (isMealFound) {
+        let producttt = user.cartMeal.find((productt) =>
+          productt.meal._id.equals(meal._id)
+        );
+        producttt.quantity += 1;
+      } else {
+       user.cartMeal.push({ meal, quantity: quantity });
+      }
+    }
     user = await user.save();
     res.json(user);
   } catch (e) {
