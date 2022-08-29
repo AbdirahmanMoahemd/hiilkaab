@@ -14,6 +14,21 @@ coffeeRouter.get("/api/coffees/", auth, async (req, res) => {
     }
 });
 
+coffeeRouter.get("/coffees/search/:name", auth, async (req, res) => {
+  try {
+    const coffees = await Coffee.find({
+      name: { $regex: req.params.name, $options: "i" },
+    });
+    if(coffees){
+      res.json(coffees);
+
+    }
+
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 
 coffeeRouter.get("/api/coffees/:id", async (req, res) => {
   try {

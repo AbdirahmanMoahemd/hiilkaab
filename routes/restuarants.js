@@ -14,6 +14,22 @@ restaurantRouter.get("/api/restaurants/", auth, async (req, res) => {
     }
 });
 
+restaurantRouter.get("/restaurants/search/:name", auth, async (req, res) => {
+  try {
+    const restaurants = await Restaurant.find({
+      name: { $regex: req.params.name, $options: "i" },
+    });
+    if(restaurants){
+      res.json(restaurants);
+
+    }
+
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 
 restaurantRouter.get("/api/restaurants/:id", async (req, res) => {
   try {

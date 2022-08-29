@@ -14,6 +14,22 @@ sweetsRouter.get("/api/sweets/", auth, async (req, res) => {
     }
 });
 
+sweetsRouter.get("/sweets/search/:name", auth, async (req, res) => {
+  try {
+    const sweets = await Sweets.find({
+      name: { $regex: req.params.name, $options: "i" },
+    });
+    if(sweets){
+      res.json(sweets);
+
+    }
+
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 
 sweetsRouter.get("/api/sweets/:id", async (req, res) => {
   try {
