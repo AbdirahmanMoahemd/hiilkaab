@@ -5,7 +5,7 @@ const auth = require("../middlewares/auth");
 const { Sweets } = require("../models/sweets");
 
 // get sweets
-sweetsRouter.get("/api/sweets/", auth, async (req, res) => {
+sweetsRouter.get("/api/sweets/", async (req, res) => {
     try {
       const sweetss = await Sweets.find();
       res.json(sweetss);
@@ -14,7 +14,7 @@ sweetsRouter.get("/api/sweets/", auth, async (req, res) => {
     }
 });
 
-sweetsRouter.get("/sweets/search/:name", auth, async (req, res) => {
+sweetsRouter.get("/sweets/search/:name", async (req, res) => {
   try {
     const sweets = await Sweets.find({
       name: { $regex: req.params.name, $options: "i" },

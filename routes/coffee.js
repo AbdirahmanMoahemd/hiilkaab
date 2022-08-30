@@ -5,7 +5,7 @@ const auth = require("../middlewares/auth");
 const { Coffee } = require("../models/coffee");
 
 // get coffee
-coffeeRouter.get("/api/coffees/", auth, async (req, res) => {
+coffeeRouter.get("/api/coffees/", async (req, res) => {
     try {
       const coffees = await Coffee.find();
       res.json(coffees);
@@ -14,7 +14,7 @@ coffeeRouter.get("/api/coffees/", auth, async (req, res) => {
     }
 });
 
-coffeeRouter.get("/coffees/search/:name", auth, async (req, res) => {
+coffeeRouter.get("/coffees/search/:name", async (req, res) => {
   try {
     const coffees = await Coffee.find({
       name: { $regex: req.params.name, $options: "i" },

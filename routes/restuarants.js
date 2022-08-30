@@ -5,7 +5,7 @@ const auth = require("../middlewares/auth");
 const { Restaurant } = require("../models/restaurants");
 
 // get restaurant
-restaurantRouter.get("/api/restaurants/", auth, async (req, res) => {
+restaurantRouter.get("/api/restaurants/", async (req, res) => {
     try {
       const restaurants = await Restaurant.find();
       res.json(restaurants);
@@ -14,7 +14,7 @@ restaurantRouter.get("/api/restaurants/", auth, async (req, res) => {
     }
 });
 
-restaurantRouter.get("/restaurants/search/:name", auth, async (req, res) => {
+restaurantRouter.get("/restaurants/search/:name", async (req, res) => {
   try {
     const restaurants = await Restaurant.find({
       name: { $regex: req.params.name, $options: "i" },
