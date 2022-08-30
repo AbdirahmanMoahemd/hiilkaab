@@ -75,7 +75,7 @@ userRouter.post("/api/add-to-cartMeal",  async (req, res) => {
 
 
 
-userRouter.post("/api/increas-from-cartMeal", auth, async (req, res) => {
+userRouter.post("/api/increas-from-cartMeal", async (req, res) => {
   try {
     const { id } = req.body;
     const meal = await Meal.findById(id);
