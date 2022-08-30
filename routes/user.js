@@ -6,7 +6,7 @@ const Order = require("../models/order");
 const { Product } = require("../models/product");
 const User = require("../models/user");
 
-userRouter.post("/api/add-to-cart", async (req, res) => {
+userRouter.post("/api/add-to-cart", auth, async (req, res) => {
   try {
     const { id } = req.body;
     const product = await Product.findById(id);
@@ -41,7 +41,7 @@ userRouter.post("/api/add-to-cart", async (req, res) => {
 
 
 
-userRouter.post("/api/add-to-cartMeal",  async (req, res) => {
+userRouter.post("/api/add-to-cartMeal", auth, async (req, res) => {
   try {
     const { id, quantity } = req.body;
     const meal = await Meal.findById(id);
@@ -75,7 +75,7 @@ userRouter.post("/api/add-to-cartMeal",  async (req, res) => {
 
 
 
-userRouter.post("/api/increas-from-cartMeal", async (req, res) => {
+userRouter.post("/api/increas-from-cartMeal", auth, async (req, res) => {
   try {
     const { id } = req.body;
     const meal = await Meal.findById(id);
@@ -110,7 +110,7 @@ userRouter.post("/api/increas-from-cartMeal", async (req, res) => {
 
 
 
-userRouter.delete("/api/remove-from-cart/:id", async (req, res) => {
+userRouter.delete("/api/remove-from-cart/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
@@ -135,7 +135,7 @@ userRouter.delete("/api/remove-from-cart/:id", async (req, res) => {
 
 
 
-userRouter.delete("/api/remove-from-cartMeal/:id", async (req, res) => {
+userRouter.delete("/api/remove-from-cartMeal/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
     const meal = await Meal.findById(id);
@@ -160,7 +160,7 @@ userRouter.delete("/api/remove-from-cartMeal/:id", async (req, res) => {
 
 
 // save user address
-userRouter.post("/api/save-user-address",  async (req, res) => {
+userRouter.post("/api/save-user-address", auth, async (req, res) => {
   try {
     const { address } = req.body;
     let user = await User.findById(req.user);
@@ -173,7 +173,7 @@ userRouter.post("/api/save-user-address",  async (req, res) => {
 });
 
 // order product
-userRouter.post("/api/order", async (req, res) => {
+userRouter.post("/api/order", auth, async (req, res) => {
   try {
     const { cart, totalPrice, address } = req.body;
     let products = [];
@@ -209,7 +209,7 @@ userRouter.post("/api/order", async (req, res) => {
   }
 });
 
-userRouter.get("/api/orders/me", async (req, res) => {
+userRouter.get("/api/orders/me", auth, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user });
     res.json(orders);
