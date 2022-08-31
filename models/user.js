@@ -44,6 +44,16 @@ const userSchema = mongoose.Schema({
         type: Number,
         required: true,
       },
+      sizes: [
+        {
+          type: String,
+        }
+      ],
+      colors: [
+        {
+          type: Number,
+        }
+      ],
     },
   ],
   cartMeal: [

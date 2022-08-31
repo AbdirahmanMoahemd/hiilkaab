@@ -10,15 +10,15 @@ const authRouter = express.Router();
 // post Api
 authRouter.post('/api/signup', async (req, res)=> {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password,phone } = req.body;
 
     const userIsExists = await User.findOne({email});
     if(userIsExists){
         return res.status(400).json({msg:'user already exists'})
     }
-    const hashedPassword = await bcryptjs.hash(password, 8);
+    const hashedPassword = await bcryptjs.hash(password, 6);
     let user = new User({ 
-        name, email, password:hashedPassword
+        name, email, password:hashedPassword,phone
     });
     user = await user.save();
  

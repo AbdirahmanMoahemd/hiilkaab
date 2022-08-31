@@ -8,12 +8,12 @@ const User = require("../models/user");
 
 userRouter.post("/api/add-to-cart", auth, async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id, sizes, colors } = req.body;
     const product = await Product.findById(id);
     let user = await User.findById(req.user);
 
     if (user.cart.length == 0) {
-      user.cart.push({ product, quantity: 1 });
+      user.cart.push({ product, quantity: 1, sizes, colors });
     } else {
       let isProductFound = false;
       for (let i = 0; i < user.cart.length; i++) {
@@ -28,7 +28,7 @@ userRouter.post("/api/add-to-cart", auth, async (req, res) => {
         );
         producttt.quantity += 1;
       } else {
-        user.cart.push({ product, quantity: 1 });
+        user.cart.push({ product, quantity: 1,sizes, colors });
       }
     }
     user = await user.save();
