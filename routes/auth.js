@@ -140,7 +140,7 @@ authRouter.put("/api/update/profile/password", auth, async (req, res) => {
         
       res.json({
             _id: updatedUser._id,
-            name: updatedUser.name,
+            password: updatedUser.password,
            
       })
         
