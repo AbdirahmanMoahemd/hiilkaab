@@ -140,13 +140,10 @@ authRouter.put("/api/update/profile/password/:id", auth, async (req, res) => {
 
       user = await user.save() 
         
-      res.json({
-            _id: updatedUser._id,
-            password: updatedUser.password,
-           
-      })
+      res.json(user)
         
     }
+    
     else {
         res.status(404)
         throw new Error ('User Not Found')
