@@ -93,7 +93,7 @@ authRouter.get("/api/users/:id",auth, async (req, res) => {
 
 
 authRouter.put("/api/update/profile", auth, async (req, res) => {
-  const user = await User.findById(req.user._id)
+  let user = await User.findById(req.user._id)
 
     if (user) {
         
@@ -106,6 +106,14 @@ authRouter.put("/api/update/profile", auth, async (req, res) => {
           const hashedPassword = await bcryptjs.hash(req.body.password, 6);
             user.password = hashedPassword
         }
+      const eml = req.body.email
+
+      user = await User.findOne({eml});
+      if (user) {
+        return res
+          .status(400)
+          .json({ msg: "User with this email exist!" });
+      }
 
 
         const updatedUser = await user.save() 
