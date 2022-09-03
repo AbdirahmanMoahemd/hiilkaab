@@ -74,7 +74,7 @@ authRouter.get("/", auth, async (req, res) => {
     res.json({ ...user._doc, token: req.token });
   });
   
-authRouter.get("/api/users/:id", async (req, res) => {
+authRouter.get("/api/users/:id",auth, async (req, res) => {
     try {
       const user = await User.findById(req.params.id)
 
@@ -87,7 +87,7 @@ authRouter.get("/api/users/:id", async (req, res) => {
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
-  });
+});
   
 
 
