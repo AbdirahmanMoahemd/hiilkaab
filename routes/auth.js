@@ -73,6 +73,24 @@ authRouter.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user);
     res.json({ ...user._doc, token: req.token });
   });
+  
+authRouter.get("/api/users/:id", async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id)
+
+  
+      if(user){
+        res.json(user);
+      }
+  
+      
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+  
+
+
 
 authRouter.put("/api/update/profile", auth, async (req, res) => {
   const user = await User.findById(req.user._id)
