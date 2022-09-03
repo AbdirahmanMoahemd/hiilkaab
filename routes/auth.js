@@ -134,9 +134,9 @@ authRouter.put("/api/update/profile/password/:id", auth, async (req, res) => {
 
     if (user) {
         
-      const hashedPassword = await bcryptjs.hash(password, 6);
+      // const hashedPassword = await bcryptjs.hash(password, 6);
         
-      user.password = hashedPassword || user.password  
+      user.password = password || user.password  
 
       const updatedUser = await user.save() 
         
