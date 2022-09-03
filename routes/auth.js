@@ -94,13 +94,8 @@ authRouter.get("/api/users/:id",auth, async (req, res) => {
 
 authRouter.put("/api/update/profile", auth, async (req, res) => {
   let user = await User.findById(req.user._id)
-  const eml = req.body.email
-  user = await User.findOne({eml});
-      if (user) {
-        return res
-          .status(400)
-          .json({ msg: "User with this email exist!" });
-      }
+ 
+ 
 
     if (user) {
         
