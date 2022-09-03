@@ -104,10 +104,6 @@ authRouter.put("/api/update/profile/:id", auth, async (req, res) => {
         user.phone = req.body.phone || user.phone
         user.address = req.body.address || user.address
         
-      
-
-      
-
 
         const updatedUser = await user.save() 
         
@@ -118,6 +114,35 @@ authRouter.put("/api/update/profile/:id", auth, async (req, res) => {
             address: updatedUser.address,
             phone: updatedUser.phone,
         })
+        
+    }
+    else {
+        res.status(404)
+        throw new Error ('User Not Found')
+    }
+
+})
+
+
+
+authRouter.put("/api/update/profile/password", auth, async (req, res) => {
+  let user = await User.findById(req.params.id)
+ 
+ 
+
+    if (user) {
+        
+      const hashedPassword = await bcryptjs.hash(req.body.password, 6);
+        
+      user.password = hashedPassword || user.password  
+
+      const updatedUser = await user.save() 
+        
+      res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+           
+      })
         
     }
     else {
