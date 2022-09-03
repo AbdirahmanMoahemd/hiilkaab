@@ -93,6 +93,7 @@ authRouter.get("/api/users/:id",auth, async (req, res) => {
 
 
 authRouter.put("/api/update/profile/:id", auth, async (req, res) => {
+
   let user = await User.findById(req.params.id)
  
  
@@ -127,14 +128,15 @@ authRouter.put("/api/update/profile/:id", auth, async (req, res) => {
 
 authRouter.put("/api/update/profile/password", auth, async (req, res) => {
   let user = await User.findById(req.params.id)
+  const { password } = req.body;
  
  
 
     if (user) {
         
-      const hashedPassword = await bcryptjs.hash(req.body.password, 6);
+     
         
-      user.password = hashedPassword || user.password  
+      user.password = password || user.password  
 
       const updatedUser = await user.save() 
         
