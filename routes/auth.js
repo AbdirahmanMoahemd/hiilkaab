@@ -93,7 +93,7 @@ authRouter.get("/api/users/:id",auth, async (req, res) => {
 
 
 authRouter.put("/api/update/profile", auth, async (req, res) => {
-  let user = await User.findById(req.user._id)
+  let user = await User.findById(req.params._id)
  
  
 
