@@ -3,6 +3,7 @@ const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
+const admin = require('../middlewares/admin');
 
 
 const authRouter = express.Router(); 
@@ -72,6 +73,12 @@ authRouter.post("/tokenIsValid", async (req, res) => {
 authRouter.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user);
     res.json({ ...user._doc, token: req.token });
+  });
+
+authRouter.get("/users", admin, async (req, res) => {
+    const users = await User.find();
+
+    res.json(users);
   });
   
 authRouter.get("/api/users/:id",auth, async (req, res) => {
