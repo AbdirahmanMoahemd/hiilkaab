@@ -157,6 +157,32 @@ authRouter.put("/api/update/profile/password/:id", auth, async (req, res) => {
     }
 
   })
+
+
+authRouter.put("/api/update/type/:id", admin, async (req, res) => {
+    let user = await User.findById(req.params.id)
+    const { type } = req.body;
+   
+   
+  
+      if (user) {
+          
+        
+          
+        user.type = type || user.type  
+  
+        user = await user.save() 
+          
+        res.json(user)
+          
+      }
+      
+      else {
+          res.status(404)
+          throw new Error ('User Not Found')
+      }
+  
+})
   
 
 module.exports = {authRouter}
