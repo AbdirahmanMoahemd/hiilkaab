@@ -175,7 +175,7 @@ userRouter.post("/api/save-user-address", auth, async (req, res) => {
 // order product
 userRouter.post("/api/order", auth, async (req, res) => {
   try {
-    const { cart,cartMeal,paymentMethod, shippingPrice,isPaid,paidAt, totalPrice, address } = req.body;
+    const { cart,cartMeal,paymentMethod, shippingPrice,isPaid, totalPrice, address } = req.body;
     let products = [];
 
     for (let i = 0; i < cart.length; i++) {
@@ -215,7 +215,7 @@ userRouter.post("/api/order", auth, async (req, res) => {
       products,
       meals,
       shippingPrice,
-      paidAt,
+      paidAt: new Date(),
       isPaid,
       paymentMethod,
       totalPrice,
