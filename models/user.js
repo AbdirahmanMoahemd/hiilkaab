@@ -33,8 +33,6 @@ const userSchema = mongoose.Schema({
     type: String,
     default: "",
   },
-  city: { type: String },
-  country: { type: String },
   type: {
     type: String,
     default: "user",
