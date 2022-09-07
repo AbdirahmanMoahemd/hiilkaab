@@ -33,6 +33,8 @@ const userSchema = mongoose.Schema({
     type: String,
     default: "",
   },
+  city: { type: String },
+  country: { type: String },
   type: {
     type: String,
     default: "user",
@@ -47,12 +49,12 @@ const userSchema = mongoose.Schema({
       sizes: [
         {
           type: String,
-        }
+        },
       ],
       colors: [
         {
           type: Number,
-        }
+        },
       ],
     },
   ],

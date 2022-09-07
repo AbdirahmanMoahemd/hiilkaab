@@ -12,6 +12,7 @@ const restaurantRouter = require('./routes/restuarants');
 const coffeeRouter = require('./routes/coffee');
 const sweetsRouter = require('./routes/sweets');
 const userRouter = require('./routes/user');
+const notificationRouter = require("./routes/notification");
 
 //init server
 const app = express();  
@@ -30,6 +31,7 @@ app.use(mealcategoryRouter)
 app.use(restaurantRouter)
 app.use(sweetsRouter)
 app.use(coffeeRouter)
+app.use(notificationRouter)
 
 //DB connection
 mongoose.connect(db_url).then( ()=>{
