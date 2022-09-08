@@ -282,8 +282,8 @@ userRouter.post("/api/order/cod", auth, async (req, res) => {
 
     for (let i = 0; i < cart.length; i++) {
       let product = await Product.findById(cart[i].product._id);
-      if (product.quantity >= cart[i].quantity) {
-        product.quantity -= cart[i].quantity;
+      if (product.countInStock >= cart[i].quantity) {
+        product.countInStock -= cart[i].quantity;
         products.push({ product, quantity: cart[i].quantity, });
         await product.save();
       } else {
@@ -297,15 +297,15 @@ userRouter.post("/api/order/cod", auth, async (req, res) => {
 
     for (let i = 0; i < cartMeal.length; i++) {
       let meal = await Meal.findById(cartMeal[i].meal._id);
-      if (meal.quantity >= cartMeal[i].quantity) {
-        meal.quantity -= cartMeal[i].quantity;
+      // if (meal.quantity >= cartMeal[i].quantity) {
+      //   meal.quantity -= cartMeal[i].quantity;
         meals.push({ meal, quantity: cartMeal[i].quantity });
         await meal.save();
-      } else {
-        return res
-          .status(400)
-          .json({ msg: `${meal.name} is out of stock!` });
-      }
+      // } else {
+      //   return res
+      //     .status(400)
+      //     .json({ msg: `${meal.name} is out of stock!` });
+      // }
     }
 
     let user = await User.findById(req.user);
