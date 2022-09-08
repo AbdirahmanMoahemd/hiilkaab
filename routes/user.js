@@ -42,19 +42,19 @@ userRouter.post("/api/add-to-cart", auth, async (req, res) => {
 
 userRouter.delete("/api/remove-cartitem", auth, async (req, res) => {
     try {
-      // const { id } = req.params;
+      const { index } = req.params;
       // const product = await Product.findById(id);
       let user = await User.findById(req.user);
   
-      for (let i = 0; i < user.cart.length; i++) {
+      // for (let i = 0; i < user.cart.length; i++) {
         // if (user.cart[i].product._id.equals(product._id)) {
           // if (user.cart[i].quantity == 1) {
-            user.cart.splice(i, 1);
+            user.cart.splice(index, 1);
           // } else {
           //   user.cart[i].quantity -= 1;
           // }
         // }
-      }
+      // }
       user = await user.save();
       res.json(user);
     } catch (e) {
