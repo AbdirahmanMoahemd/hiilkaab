@@ -218,13 +218,13 @@ userRouter.post("/api/save-user-address", auth, async (req, res) => {
 // order product
 userRouter.post("/api/order", auth, async (req, res) => {
   try {
-    const { cart,cartMeal,paymentMethod, shippingPrice,isPaid, totalPrice, address } = req.body;
+    const { cart,cartMeal,paymentMethod, shippingPrice,totalPrice, address } = req.body;
     let products = [];
 
     for (let i = 0; i < cart.length; i++) {
       let product = await Product.findById(cart[i].product._id);
-      if (product.quantity >= cart[i].quantity) {
-        product.quantity -= cart[i].quantity;
+      if (product.countInStock >= cart[i].quantity) {
+        product.countInStock -= cart[i].quantity;
         products.push({ product, quantity: cart[i].quantity, });
         await product.save();
       } else {
@@ -258,8 +258,6 @@ userRouter.post("/api/order", auth, async (req, res) => {
       products,
       meals,
       shippingPrice,
-      paidAt: new Date(),
-      isPaid,
       paymentMethod,
       totalPrice,
       address,
@@ -277,7 +275,7 @@ userRouter.post("/api/order", auth, async (req, res) => {
 
 userRouter.post("/api/order/cod", auth, async (req, res) => {
   try {
-    const { cart,cartMeal,paymentMethod, shippingPrice,isPaid, totalPrice, address } = req.body;
+    const { cart,cartMeal,paymentMethod, shippingPrice, totalPrice, address } = req.body;
     let products = [];
 
     for (let i = 0; i < cart.length; i++) {
@@ -317,8 +315,6 @@ userRouter.post("/api/order/cod", auth, async (req, res) => {
       products,
       meals,
       shippingPrice,
-      paidAt: new Date(),
-      isPaid,
       paymentMethod,
       totalPrice,
       address,
