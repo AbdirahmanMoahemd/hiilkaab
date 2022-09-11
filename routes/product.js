@@ -45,7 +45,11 @@ productRouter.get("/api/top-products/",  async (req, res) => {
 productRouter.get("/products/deal_of_day", async (req, res) => {
   try {
     const products = await Product.find({isDiscounted:true});
-    res.json(products);
+
+    if (products) {
+      res.json(products);
+    }
+    
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
