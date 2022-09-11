@@ -95,6 +95,21 @@ adminRouter.get("/admin/get-orders", admin, async (req, res) => {
   }
 });
 
+adminRouter.get("/oders/search/:name", admin, async (req, res) => {
+  try {
+    const orders = await Order.find({
+      userName: { $regex: req.params.name, $options: "i" },
+    });
+    if(orders){
+      res.json(orders);
+
+    }
+
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 adminRouter.post("/admin/change-order-status", admin, async (req, res) => {
   try {
     const { id, status } = req.body;
