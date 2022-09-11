@@ -218,7 +218,7 @@ userRouter.post("/api/save-user-address", auth, async (req, res) => {
 // order product
 userRouter.post("/api/order", auth, async (req, res) => {
   try {
-    const { cart,cartMeal,paymentMethod, shippingPrice,totalPrice, address } = req.body;
+    const { userName,userPhone, cart,cartMeal,paymentMethod, shippingPrice,totalPrice, address } = req.body;
     let products = [];
 
     for (let i = 0; i < cart.length; i++) {
@@ -262,6 +262,8 @@ userRouter.post("/api/order", auth, async (req, res) => {
       totalPrice,
       address,
       userId: req.user,
+      userName: userName,
+      userPhone: userPhone,
       orderedAt: new Date().getTime(),
     });
     order = await order.save();
@@ -275,7 +277,7 @@ userRouter.post("/api/order", auth, async (req, res) => {
 
 userRouter.post("/api/order/cod", auth, async (req, res) => {
   try {
-    const { cart,cartMeal,paymentMethod, shippingPrice, totalPrice, address } = req.body;
+    const { userName,userPhone, cart,cartMeal,paymentMethod, shippingPrice, totalPrice, address } = req.body;
     let products = [];
 
     for (let i = 0; i < cart.length; i++) {
@@ -319,6 +321,8 @@ userRouter.post("/api/order/cod", auth, async (req, res) => {
       totalPrice,
       address,
       userId: req.user,
+      userName: userName,
+      userPhone: userPhone,
       orderedAt: new Date().getTime(),
     });
     order = await order.save();

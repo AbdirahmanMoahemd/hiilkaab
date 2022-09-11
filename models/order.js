@@ -8,6 +8,14 @@ const orderSchema = mongoose.Schema(
       required: true,
       type: String,
     },
+    userName: {
+      required: true,
+      type: String,
+    },
+    userPhone: {
+      required: true,
+      type: String,
+    },
     products: [
       {
         product: productSchema,
