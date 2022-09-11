@@ -44,6 +44,37 @@ userRouter.post("/api/add-to-cart", auth, async (req, res) => {
 
 
 
+userRouter.post("/api/add-to-wishlist", auth, async (req, res) => {
+  try {
+    const { id } = req.body;
+    const product = await Product.findById(id);
+    let user = await User.findById(req.user);
+
+    if (user.wishlist.length == 0) {
+      user.wishlist.push({ product });
+    } else {
+      let isProductFound = false;
+      for (let i = 0; i < user.wishlist.length; i++) {
+        if (user.wishlist[i].product._id.equals(product._id)) {
+          isProductFound = true;
+        }
+      }
+
+      if (isProductFound) {
+        return res.status(400).json({msg:'already added'})
+      } else {
+        user.wishlist.push({ product});
+      }
+    }
+    user = await user.save();
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
 userRouter.delete("/api/remove-cartitem", auth, async (req, res) => {
     try {
       const { index } = req.body;

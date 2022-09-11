@@ -56,6 +56,11 @@ const userSchema = mongoose.Schema({
       ],
     },
   ],
+  wishlist: [
+    {
+      product: productSchema,
+    }
+  ],
   cartMeal: [
     {
       meal: mealSchema,
