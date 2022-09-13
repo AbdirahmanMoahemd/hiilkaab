@@ -96,6 +96,29 @@ userRouter.delete("/api/remove-cartitem", auth, async (req, res) => {
 });
 
 
+userRouter.delete("/api/remove-cartMealitem", auth, async (req, res) => {
+  try {
+    const { index } = req.body;
+    // const product = await Product.findById(id);
+    let user = await User.findById(req.user);
+
+    // for (let i = 0; i < user.cart.length; i++) {
+      // if (user.cart[i].product._id.equals(product._id)) {
+        // if (user.cart[i].quantity == 1) {
+          user.cartMeal.splice(index, 1);
+        // } else {
+        //   user.cart[i].quantity -= 1;
+        // }
+      // }
+    // }
+    user = await user.save();
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 userRouter.delete("/api/remove-wishlistItem", auth, async (req, res) => {
   try {
     const { index } = req.body;
