@@ -29,6 +29,22 @@ mealRouter.get("/api/meals/:id", async (req, res) => {
   }
 });
 
+
+mealRouter.get("/meals/deal_of_day", async (req, res) => {
+  try {
+    let meals = await Meal.find({isDiscounted:true});
+
+    if (meals) {
+      res.json(meals);
+    }
+   
+
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 mealRouter.post("/api/meals/store", async (req, res) => {
   try {
     const { query } = req.body;
