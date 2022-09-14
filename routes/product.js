@@ -78,6 +78,23 @@ productRouter.get("/products/search/:name", auth, async (req, res) => {
 });
 
 
+productRouter.get("/products/category/:name", async (req, res) => {
+  try {
+   
+    const products = await Product.find({
+      category: { $regex: req.params.name}
+    });
+    if(products){
+      res.json(products);
+
+    }
+
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 
 
 // create a post request route to rate the product.
