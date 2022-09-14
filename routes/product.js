@@ -49,6 +49,19 @@ productRouter.get("/products/deal_of_day", async (req, res) => {
   }
 });
 
+
+productRouter.get("/products/deal_of_day/:name", async (req, res) => {
+  try {
+    let products = await Product.find({ isDiscounted: true,category: { $regex: req.params.name } },);
+
+    if (products) {
+      res.json(products);
+    } 
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // create a get request to search products and get them
 // /api/products/search/i
 productRouter.get("/products/search/:name", auth, async (req, res) => {
