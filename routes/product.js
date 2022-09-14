@@ -77,21 +77,25 @@ productRouter.get("/products/category/:name", async (req, res) => {
   }
 });
 
-productRouter.get("/products/hprice", async (req, res) => {
+productRouter.get("/products/hprice/:name", async (req, res) => {
   try {
-    const products = await Product.find({}).sort({ price: -1 });
+    const products = await Product.find({category: { $regex: req.params.name },}).sort({ price: -1 });
     
-    res.json(products);
+    if (products) {
+      res.json(products);
+    }
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
 
-productRouter.get("/products/lprice", async (req, res) => {
+productRouter.get("/products/lprice/:name", async (req, res) => {
   try {
-    const products = await Product.find({}).sort({ price: 1 });
+    const products = await Product.find({category: { $regex: req.params.name},}).sort({ price: 1 });
+    if (products) {
+      res.json(products);
+    }
     
-    res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
