@@ -103,4 +103,31 @@ restaurantRouter.post("/admin/delete-restaurant", admin, async (req, res) => {
 });
 
 
+restaurantRouter.post("/api/rate-restaurant", auth, async (req, res) => {
+  try {
+    const { id, rating } = req.body;
+    let restaurant = await Restaurant.findById(id);
+
+    for (let i = 0; i < restaurant.ratings.length; i++) {
+      if (restaurant.ratings[i].userId == req.user) {
+        restaurant.ratings.splice(i, 1);
+        break;
+      }
+    }
+
+    const ratingSchema = {
+      userId: req.user,
+      rating,
+    };
+
+    restaurant.ratings.push(ratingSchema);
+    restaurant.rating = rating;
+    restaurant = await restaurant.save();
+    res.json(restaurant);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 module.exports = restaurantRouter;

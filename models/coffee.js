@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ratingSchema = require("./rating");
 
 const coffeeSchema = mongoose.Schema({
     name: {
@@ -30,6 +31,7 @@ const coffeeSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    ratings: [ratingSchema],
    
     
     
