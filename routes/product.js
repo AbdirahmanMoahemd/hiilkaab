@@ -3,7 +3,7 @@ const productRouter = express.Router();
 const auth = require("../middlewares/auth");
 const { Product } = require("../models/product");
 
-productRouter.get("/api/products/",  async (req, res) => {
+productRouter.get("/api/products/", async (req, res) => {
   try {
     const products = await Product.find();
     res.json(products);
@@ -16,45 +16,34 @@ productRouter.get("/api/products/:id", async (req, res) => {
   try {
     const products = await Product.findById(req.params.id);
 
-    if(products){
-      res.json(products);
-    }
-
-    
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-
-productRouter.get("/api/top-products/",  async (req, res) => {
-  try {
-    const products = await Product.find({}).sort({ rating: -1 }).limit(30)
-
-    res.json(products);
-
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-
-
-
-
-
-
-productRouter.get("/products/deal_of_day", async (req, res) => {
-  try {
-    let products = await Product.find({isDiscounted:true});
-
     if (products) {
       res.json(products);
     }
-    else{
-      products = []
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+productRouter.get("/api/top-products/", async (req, res) => {
+  try {
+    const products = await Product.find({}).sort({ rating: -1 }).limit(30);
+
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+productRouter.get("/products/deal_of_day", async (req, res) => {
+  try {
+    let products = await Product.find({ isDiscounted: true });
+
+    if (products) {
+      res.json(products);
+    } else {
+      products = [];
       res.json(products);
     }
-
-    
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -67,35 +56,46 @@ productRouter.get("/products/search/:name", auth, async (req, res) => {
     const products = await Product.find({
       name: { $regex: req.params.name, $options: "i" },
     });
-    if(products){
+    if (products) {
       res.json(products);
-
     }
-
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
-
 
 productRouter.get("/products/category/:name", async (req, res) => {
   try {
-   
     const products = await Product.find({
-      category: { $regex: req.params.name}
+      category: { $regex: req.params.name },
     });
-    if(products){
+    if (products) {
       res.json(products);
-
     }
-
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
 
+productRouter.get("/products/hprice", async (req, res) => {
+  try {
+    const products = await Product.find({}).sort({ price: -1 });
+    
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
-
+productRouter.get("/products/lprice", async (req, res) => {
+  try {
+    const products = await Product.find({}).sort({ price: 1 });
+    
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 // create a post request route to rate the product.
 productRouter.post("/api/rate-product", auth, async (req, res) => {
@@ -114,13 +114,11 @@ productRouter.post("/api/rate-product", auth, async (req, res) => {
       userId: req.user,
       rating,
     };
-   
 
     product.ratings.push(ratingSchema);
-      product.rating=rating
-      product = await product.save();
+    product.rating = rating;
+    product = await product.save();
     res.json(product);
-    
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
