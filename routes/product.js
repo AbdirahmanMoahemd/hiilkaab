@@ -62,6 +62,19 @@ productRouter.get("/products/deal_of_day/:name", async (req, res) => {
   }
 });
 
+
+productRouter.get("/products/sub/deal_of_day/:name", async (req, res) => {
+  try {
+    let products = await Product.find({ isDiscounted: true,subcategory: { $regex: req.params.name } },);
+
+    if (products) {
+      res.json(products);
+    } 
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // create a get request to search products and get them
 // /api/products/search/i
 productRouter.get("/products/search/:name", auth, async (req, res) => {
@@ -90,6 +103,19 @@ productRouter.get("/products/category/:name", async (req, res) => {
   }
 });
 
+productRouter.get("/products/subcategory/:name", async (req, res) => {
+  try {
+    const products = await Product.find({
+      subcategory: { $regex: req.params.name },
+    });
+    if (products) {
+      res.json(products);
+    }
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 productRouter.get("/products/hprice/:name", async (req, res) => {
   try {
     const products = await Product.find({category: { $regex: req.params.name },}).sort({ price: -1 });
@@ -102,9 +128,34 @@ productRouter.get("/products/hprice/:name", async (req, res) => {
   }
 });
 
+productRouter.get("/products/sub/hprice/:name", async (req, res) => {
+  try {
+    const products = await Product.find({subcategory: { $regex: req.params.name },}).sort({ price: -1 });
+    
+    if (products) {
+      res.json(products);
+    }
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 productRouter.get("/products/lprice/:name", async (req, res) => {
   try {
     const products = await Product.find({category: { $regex: req.params.name},}).sort({ price: 1 });
+    if (products) {
+      res.json(products);
+    }
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+productRouter.get("/products/sub/lprice/:name", async (req, res) => {
+  try {
+    const products = await Product.find({subcategory: { $regex: req.params.name},}).sort({ price: 1 });
     if (products) {
       res.json(products);
     }
