@@ -102,4 +102,31 @@ coffeeRouter.post("/admin/delete-coffee", admin, async (req, res) => {
 });
 
 
+coffeeRouter.post("/api/rate-coffee", auth, async (req, res) => {
+  try {
+    const { id, rating } = req.body;
+    let coffee = await Coffee.findById(id);
+
+    for (let i = 0; i < coffee.ratings.length; i++) {
+      if (coffee.ratings[i].userId == req.user) {
+        coffee.ratings.splice(i, 1);
+        break;
+      }
+    }
+
+    const ratingSchema = {
+      userId: req.user,
+      rating,
+    };
+
+    coffee.ratings.push(ratingSchema);
+    coffee.rating = rating;
+    coffee = await coffee.save();
+    res.json(coffee);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 module.exports = coffeeRouter;

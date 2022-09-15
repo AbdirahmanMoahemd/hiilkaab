@@ -103,4 +103,31 @@ sweetsRouter.post("/admin/delete-sweets", admin, async (req, res) => {
 });
 
 
+sweetsRouter.post("/api/rate-sweets", auth, async (req, res) => {
+  try {
+    const { id, rating } = req.body;
+    let sweets = await Sweets.findById(id);
+
+    for (let i = 0; i < sweets.ratings.length; i++) {
+      if (sweets.ratings[i].userId == req.user) {
+        sweets.ratings.splice(i, 1);
+        break;
+      }
+    }
+
+    const ratingSchema = {
+      userId: req.user,
+      rating,
+    };
+
+    sweets.ratings.push(ratingSchema);
+    sweets.rating = rating;
+    sweets = await sweets.save();
+    res.json(sweets);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 module.exports = sweetsRouter;
