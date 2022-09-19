@@ -193,9 +193,7 @@ userRouter.post("/api/increas-from-cartMeal", auth, async (req, res) => {
         if (user.cartMeal[i].meal._id.equals(meal._id)) {
           isMealFound = true;
         }
-        else{
-          return res.status(400).json({ msg: "this meal not available in our store. please remove it from your cart" });
-        }
+       
         
       }
 
@@ -258,9 +256,7 @@ userRouter.delete("/api/remove-from-cartMeal/:id", auth, async (req, res) => {
           user.cartMeal[i].quantity -= 1;
         }
       }
-      else{
-        return res.status(400).json({ msg: "this meal not available in our store. please remove it from your cart" });
-      }
+     
     }
     user = await user.save();
     res.json(user);
