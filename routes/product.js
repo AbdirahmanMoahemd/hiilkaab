@@ -108,7 +108,7 @@ productRouter.post("/products/subcategory", async (req, res) => {
     const { query } = req.body;
 
     const products = await Product.find({
-      subcategory: query,
+      subcategory: { $regex: query },
     });
     if (products) {
       res.json(products);
