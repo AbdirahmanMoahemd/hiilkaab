@@ -156,7 +156,60 @@ authRouter.put("/api/update/profile/password/:id", auth, async (req, res) => {
         throw new Error ('User Not Found')
     }
 
-  })
+})
+
+
+
+authRouter.post("/api/update/forgot/email", async (req, res) => {
+
+  
+  const { email, phone } = req.body;
+ 
+ 
+    let  user = await User.findOne({ email,phone });
+    if (user) {
+        
+        
+      res.json(user)
+        
+    }
+    else if (!user) {
+      return res
+        .status(400)
+        .json({ msg: "User with this email and phone does not exist!" });
+    }
+    
+    else {
+        res.status(404)
+        throw new Error ('User Not Found')
+    }
+
+})
+
+authRouter.put("/api/update/profile/password", async (req, res) => {
+ 
+  const { password, email } = req.body;
+ 
+  let user = await User.findOne(email)
+
+    if (user) {
+        
+      const hashedPassword = await bcryptjs.hash(password, 6);
+        
+      user.password = hashedPassword || user.password  
+
+      user = await user.save() 
+        
+      res.json(user)
+        
+    }
+    
+    else {
+        res.status(404)
+        throw new Error ('User Not Found')
+    }
+
+})
 
 
 authRouter.put("/api/update/type/:id", admin, async (req, res) => {
