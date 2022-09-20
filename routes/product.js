@@ -103,10 +103,12 @@ productRouter.get("/products/category/:name", async (req, res) => {
   }
 });
 
-productRouter.get("/products/subcategory/:name", async (req, res) => {
+productRouter.post("/products/subcategory", async (req, res) => {
   try {
+    const { query } = req.body;
+
     const products = await Product.find({
-      subcategory: { $regex: req.params.name },
+      subcategory: query,
     });
     if (products) {
       res.json(products);
