@@ -186,7 +186,7 @@ authRouter.post("/api/update/forgot/email", async (req, res) => {
 
 })
 
-authRouter.put("/api/update/profile/password", async (req, res) => {
+authRouter.put("/api/update/forgot/password", async (req, res) => {
  
   const { password, email } = req.body;
  
