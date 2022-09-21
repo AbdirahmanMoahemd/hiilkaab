@@ -5,7 +5,26 @@ const { Product } = require("../models/product");
 
 productRouter.get("/api/products/", async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find({isFeatured:true});
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+productRouter.get("/api/admin/products/", async (req, res) => {
+  try {
+    const products = await Product.find({});
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+productRouter.get("/api/products/out", async (req, res) => {
+  try {
+    const products = await Product.find({countInStock:countInStock < 1});
     res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -36,7 +55,7 @@ productRouter.get("/api/top-products/", async (req, res) => {
 
 productRouter.get("/products/deal_of_day", async (req, res) => {
   try {
-    let products = await Product.find({ isDiscounted: true });
+    let products = await Product.find({ isDiscounted: true,isFeatured:true });
 
     if (products) {
       res.json(products);
@@ -52,7 +71,7 @@ productRouter.get("/products/deal_of_day", async (req, res) => {
 
 productRouter.get("/products/deal_of_day/:name", async (req, res) => {
   try {
-    let products = await Product.find({ isDiscounted: true,category: { $regex: req.params.name } },);
+    let products = await Product.find({ isDiscounted: true,category: { $regex: req.params.name },isFeatured:true },);
 
     if (products) {
       res.json(products);
@@ -65,7 +84,7 @@ productRouter.get("/products/deal_of_day/:name", async (req, res) => {
 
 productRouter.get("/products/sub/deal_of_day/:name", async (req, res) => {
   try {
-    let products = await Product.find({ isDiscounted: true,subcategory: { $regex: req.params.name } },);
+    let products = await Product.find({ isDiscounted: true,subcategory: { $regex: req.params.name },isFeatured:true },);
 
     if (products) {
       res.json(products);
@@ -80,7 +99,7 @@ productRouter.get("/products/sub/deal_of_day/:name", async (req, res) => {
 productRouter.get("/products/search/:name", auth, async (req, res) => {
   try {
     const products = await Product.find({
-      name: { $regex: req.params.name, $options: "i" },
+      name: { $regex: req.params.name, $options: "i" },isFeatured:true
     });
     if (products) {
       res.json(products);
@@ -93,7 +112,7 @@ productRouter.get("/products/search/:name", auth, async (req, res) => {
 productRouter.get("/products/category/:name", async (req, res) => {
   try {
     const products = await Product.find({
-      category: { $regex: req.params.name },
+      category: { $regex: req.params.name },isFeatured:true
     });
     if (products) {
       res.json(products);
@@ -108,7 +127,7 @@ productRouter.post("/products/subcategory", async (req, res) => {
     const { query } = req.body;
 
     const products = await Product.find({
-      subcategory: { $regex: query },
+      subcategory: { $regex: query },isFeatured:true
     });
     if (products) {
       res.json(products);
@@ -120,7 +139,7 @@ productRouter.post("/products/subcategory", async (req, res) => {
 
 productRouter.get("/products/hprice/:name", async (req, res) => {
   try {
-    const products = await Product.find({category: { $regex: req.params.name },}).sort({ price: -1 });
+    const products = await Product.find({category: { $regex: req.params.name },isFeatured:true}).sort({ price: -1 });
     
     if (products) {
       res.json(products);
@@ -132,7 +151,7 @@ productRouter.get("/products/hprice/:name", async (req, res) => {
 
 productRouter.get("/products/sub/hprice/:name", async (req, res) => {
   try {
-    const products = await Product.find({subcategory: { $regex: req.params.name },}).sort({ price: -1 });
+    const products = await Product.find({subcategory: { $regex: req.params.name },isFeatured:true}).sort({ price: -1 });
     
     if (products) {
       res.json(products);
@@ -144,7 +163,7 @@ productRouter.get("/products/sub/hprice/:name", async (req, res) => {
 
 productRouter.get("/products/lprice/:name", async (req, res) => {
   try {
-    const products = await Product.find({category: { $regex: req.params.name},}).sort({ price: 1 });
+    const products = await Product.find({category: { $regex: req.params.name},isFeatured:true}).sort({ price: 1 });
     if (products) {
       res.json(products);
     }
@@ -157,7 +176,7 @@ productRouter.get("/products/lprice/:name", async (req, res) => {
 
 productRouter.get("/products/sub/lprice/:name", async (req, res) => {
   try {
-    const products = await Product.find({subcategory: { $regex: req.params.name},}).sort({ price: 1 });
+    const products = await Product.find({subcategory: { $regex: req.params.name},isFeatured:true}).sort({ price: 1 });
     if (products) {
       res.json(products);
     }
