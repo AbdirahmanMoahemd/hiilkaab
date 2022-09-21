@@ -24,7 +24,7 @@ productRouter.get("/api/admin/products/", async (req, res) => {
 
 productRouter.get("/api/products/out", async (req, res) => {
   try {
-    const products = await Product.find({countInStock:countInStock < 1});
+    const products = await Product.find({countInStock: 0});
     res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
