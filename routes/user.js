@@ -306,15 +306,10 @@ userRouter.post("/api/order", auth, async (req, res) => {
 
     for (let i = 0; i < cartMeal.length; i++) {
       let meal = await Meal.findById(cartMeal[i].meal._id);
-      if (meal.quantity >= cartMeal[i].quantity) {
-        meal.quantity -= cartMeal[i].quantity;
-        meals.push({ meal, quantity: cartMeal[i].quantity, sizes:cart[i].sizes, colors: cart[i].colors });
+      
+      meals.push({ meal, quantity: cartMeal[i].quantity, sizes:cart[i].sizes, colors: cart[i].colors });
         await meal.save();
-      } else {
-        return res
-          .status(400)
-          .json({ msg: `${meal.name} is out of stock!` });
-      }
+     
     }
 
     let user = await User.findById(req.user);
