@@ -69,6 +69,23 @@ productRouter.get("/products/deal_of_day", async (req, res) => {
 });
 
 
+productRouter.get("/products/admin/deal_of_day", async (req, res) => {
+  try {
+    let products = await Product.find({ isDiscounted: true });
+
+    if (products) {
+      res.json(products);
+    } else {
+      products = [];
+      res.json(products);
+    }
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
 productRouter.get("/products/deal_of_day/:name", async (req, res) => {
   try {
     let products = await Product.find({ isDiscounted: true,category: { $regex: req.params.name },isFeatured:true },);
