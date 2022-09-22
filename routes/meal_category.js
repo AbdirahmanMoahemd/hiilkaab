@@ -9,7 +9,7 @@ const { MealCategory } = require("../models/meal_category");
 mealcategoryRouter.get("/api/mealcategory/", auth, async (req, res) => {
     try {
 
-      const mealcategory = await MealCategory.find({isFeatured:true});
+      const mealcategory = await MealCategory.find();
 
       res.json(mealcategory);
 
@@ -64,7 +64,7 @@ mealcategoryRouter.get("/api/mealcategory/:id", async (req, res) => {
 // Add mealcategoryRouter
 mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
     try {
-      const { names ,restaurant,isFeatured } = req.body;
+      const { names ,restaurant} = req.body;
 
       const restaurantExists = await MealCategory.findOne({restaurant});
       if(restaurantExists){
@@ -87,12 +87,11 @@ mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
 
 mealcategoryRouter.put("/admin/update-mealcategory", admin, async (req, res) => {
   try {
-    const  {id, names ,restaurant,isFeatured} = req.body; 
+    const  {id, names ,restaurant} = req.body; 
     let mealcategory = await MealCategory.findById(id);
     if(mealcategory){
         mealcategory.names = names;
         mealcategory.restaurant = restaurant;
-        mealcategory.isFeatured = isFeatured;
         mealcategory = await mealcategory.save();
         res.json(mealcategory);
     }

@@ -13,10 +13,7 @@ const MealCategorySchema = mongoose.Schema({
         required: true,
         
     },
-    isFeatured: {
-      type: Boolean,
-      default: false,
-  },
+    
     
 })
 
