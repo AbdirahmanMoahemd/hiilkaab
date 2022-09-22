@@ -9,7 +9,7 @@ const { MealCategory } = require("../models/meal_category");
 mealcategoryRouter.get("/api/mealcategory/", auth, async (req, res) => {
     try {
 
-      const mealcategory = await MealCategory.find();
+      const mealcategory = await MealCategory.find({isFeatured:true});
 
       res.json(mealcategory);
 
@@ -23,7 +23,7 @@ mealcategoryRouter.get("/api/mealcategory/", auth, async (req, res) => {
 mealcategoryRouter.get("/api/admin/mealcategory/", auth, async (req, res) => {
   try {
 
-    const mealcategory = await MealCategory.find({isFeatured:true});
+    const mealcategory = await MealCategory.find();
 
     res.json(mealcategory);
 
