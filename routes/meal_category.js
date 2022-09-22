@@ -18,6 +18,19 @@ mealcategoryRouter.get("/api/mealcategory/", auth, async (req, res) => {
     }
 });
 
+
+
+mealcategoryRouter.get("/api/admin/mealcategory/", auth, async (req, res) => {
+  try {
+
+    const mealcategory = await MealCategory.find({isFeatured:true});
+
+    res.json(mealcategory);
+
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 // get mealcategoryRouter
 mealcategoryRouter.post("/api/mealcategory/byrestaurant", async (req, res) => {
   try {
@@ -51,7 +64,7 @@ mealcategoryRouter.get("/api/mealcategory/:id", async (req, res) => {
 // Add mealcategoryRouter
 mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
     try {
-      const { names ,restaurant } = req.body;
+      const { names ,restaurant,isFeatured } = req.body;
 
       const restaurantExists = await MealCategory.findOne({restaurant});
       if(restaurantExists){
@@ -74,11 +87,12 @@ mealcategoryRouter.post("/admin/add-mealcategory", admin, async (req, res) => {
 
 mealcategoryRouter.put("/admin/update-mealcategory", admin, async (req, res) => {
   try {
-    const  {id, names ,restaurant} = req.body; 
+    const  {id, names ,restaurant,isFeatured} = req.body; 
     let mealcategory = await MealCategory.findById(id);
     if(mealcategory){
         mealcategory.names = names;
         mealcategory.restaurant = restaurant;
+        mealcategory.isFeatured = isFeatured;
         mealcategory = await mealcategory.save();
         res.json(mealcategory);
     }
