@@ -26,7 +26,7 @@ sliderRouter.post("/admin/add-slider", admin, async (req, res) => {
        images
         
       });
-      slider = await Sliders.save();
+      slider = await slider.save();
       res.json(slider);
     } catch (e) {
       res.status(500).json({ error: e.message });
@@ -39,8 +39,8 @@ sliderRouter.put("/admin/update-slider", admin, async (req, res) => {
     const  {id,images} = req.body; 
     let slider = await Sliders.findById(id);
     if(slider){
-        Sliders.images = images;
-        slider = await Sliders.save();
+        slider.images = images;
+        slider = await slider.save();
         res.json(slider);
     }
   } catch (e) {
