@@ -61,6 +61,11 @@ const userSchema = mongoose.Schema({
       product: productSchema,
     }
   ],
+  ordersCount: {
+    type: Number,
+    required: true,
+    default:0,
+  },
   cartMeal: [
     {
       meal: mealSchema,
