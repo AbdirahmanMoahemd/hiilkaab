@@ -380,6 +380,8 @@ userRouter.post("/api/order/cod", auth, async (req, res) => {
     user.cartMeal = [];
    
     user = await user.save();
+
+   
     
 
 
@@ -406,6 +408,20 @@ userRouter.get("/api/orders/me", auth, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user });
     res.json(orders);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+userRouter.get("/api/user/orders/count", auth, async (req, res) => {
+  try {
+    const user = await User.find({});
+
+    user.ordersCount =  + 1;
+
+    user = await user.save();
+    res.json(user);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
