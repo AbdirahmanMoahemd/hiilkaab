@@ -2,11 +2,11 @@ const express = require("express");
 const admin = require("../middlewares/admin");
 const sliderRouter = express.Router();
 const auth = require("../middlewares/auth");
-const { Slider } = require("../models/slider");
+const { Sliders } = require("../models/slider");
 
 sliderRouter.get("/api/slider", async (req, res) => {
   try {
-    const sliders = await Slider.find({});
+    const sliders = await Sliders.find({});
     res.json(sliders);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -22,11 +22,11 @@ sliderRouter.post("/admin/add-slider", admin, async (req, res) => {
      
 
     
-      let slider = new Slider({
+      let slider = new Sliders({
        images
         
       });
-      slider = await Slider.save();
+      slider = await Sliders.save();
       res.json(slider);
     } catch (e) {
       res.status(500).json({ error: e.message });
@@ -37,10 +37,10 @@ sliderRouter.post("/admin/add-slider", admin, async (req, res) => {
 sliderRouter.put("/admin/update-slider", admin, async (req, res) => {
   try {
     const  {id,images} = req.body; 
-    let slider = await Slider.findById(id);
+    let slider = await Sliders.findById(id);
     if(slider){
-        Slider.images = images;
-        slider = await Slider.save();
+        Sliders.images = images;
+        slider = await Sliders.save();
         res.json(slider);
     }
   } catch (e) {
@@ -54,7 +54,7 @@ sliderRouter.put("/admin/update-slider", admin, async (req, res) => {
 sliderRouter.post("/admin/delete-slider", admin, async (req, res) => {
   try {
     const { id } = req.body;
-    let slider = await Slider.findByIdAndDelete(id);
+    let slider = await Sliders.findByIdAndDelete(id);
     res.json(slider);
   } catch (e) {
     res.status(500).json({ error: e.message });

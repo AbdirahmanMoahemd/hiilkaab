@@ -18,6 +18,6 @@ sliderSchema.method('toJSON', function(){
     return { ...result, id };
 });
 
-const Slider = mongoose.model('Slider', sliderSchema)
+const Sliders = mongoose.model('Sliders', sliderSchema)
 
-module.exports = { Slider, sliderSchema };
+module.exports = { Sliders, sliderSchema };
