@@ -414,14 +414,20 @@ userRouter.get("/api/orders/me", auth, async (req, res) => {
 });
 
 
-userRouter.get("/api/user/orders/count", async (req, res) => {
+userRouter.put("/api/user/orders/count", async (req, res) => {
   try {
-    const user = await User.find({});
+   
+    let user = await User.findOne({ type: 'admin'});
 
-    user.ordersCount =  + 1;
+    if (user) {
+      user.ordersCount  += 1;
 
-    user = await user.save();
-    res.json(user);
+      user = await user.save();
+      res.json(user);
+    }
+
+   
+   
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
