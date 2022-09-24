@@ -31,6 +31,18 @@ productRouter.get("/api/products/out", async (req, res) => {
   }
 });
 
+
+
+
+productRouter.get("/api/products/category/:name", async (req, res) => {
+  try {
+    const products = await Product.find({category: { $regex: req.params.name },isFeatured:true});
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 productRouter.get("/api/products/:id", async (req, res) => {
   try {
     const products = await Product.findById(req.params.id);
