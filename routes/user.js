@@ -414,7 +414,7 @@ userRouter.get("/api/orders/me", auth, async (req, res) => {
 });
 
 
-userRouter.get("/api/user/orders/count", auth, async (req, res) => {
+userRouter.get("/api/user/orders/count", async (req, res) => {
   try {
     const user = await User.find({});
 
