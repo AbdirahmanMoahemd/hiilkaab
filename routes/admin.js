@@ -122,7 +122,7 @@ adminRouter.get("/admin/get-orders/by-process", admin, async (req, res) => {
 
 adminRouter.get("/admin/get-orders/by-complete", admin, async (req, res) => {
   try {
-    const orders = await Order.find({status:2});
+    const orders = await Order.find({status:3});
     orders.sort((a, b) => (a._id > b._id) ? -1 : 1)
     res.json(orders);
   } catch (e) {
