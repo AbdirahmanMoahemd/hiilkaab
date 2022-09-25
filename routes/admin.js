@@ -95,6 +95,38 @@ adminRouter.get("/admin/get-orders", admin, async (req, res) => {
   }
 });
 
+
+adminRouter.get("/admin/get-orders/by-pindding", admin, async (req, res) => {
+  try {
+    const orders = await Order.find({status:0});
+    res.json(orders);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+adminRouter.get("/admin/get-orders/by-process", admin, async (req, res) => {
+  try {
+    const orders = await Order.find({status:1});
+    res.json(orders);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+adminRouter.get("/admin/get-orders/by-complete", admin, async (req, res) => {
+  try {
+    const orders = await Order.find({status:2});
+    res.json(orders);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
 adminRouter.get("/oders/search/:name", admin, async (req, res) => {
   try {
     const orders = await Order.find({
