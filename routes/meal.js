@@ -8,6 +8,7 @@ const { Meal } = require("../models/meal");
 mealRouter.get("/api/meals/", auth, async (req, res) => {
     try {
       const meals = await Meal.find();
+      meals.sort((a, b) => (a._id > b._id) ? -1 : 1)
       res.json(meals);
     } catch (e) {
       res.status(500).json({ error: e.message });
@@ -33,7 +34,7 @@ mealRouter.get("/api/meals/:id", async (req, res) => {
 mealRouter.get("/meals/deal_of_day", async (req, res) => {
   try {
     let meals = await Meal.find({isDiscounted:true});
-
+    meals.sort((a, b) => (a._id > b._id) ? -1 : 1)
     if (meals) {
       res.json(meals);
     }
@@ -51,6 +52,7 @@ mealRouter.post("/api/meals/store", async (req, res) => {
     const meals = await Meal.find({storetype:query});
 
     if(meals){
+      meals.sort((a, b) => (a._id > b._id) ? -1 : 1)
       res.json(meals);
     }
 
@@ -67,6 +69,7 @@ mealRouter.post("/api/meals/bycategory", auth, async (req, res) => {
     const meals = await Meal.find({mealcategoryname:query, storetype:query2});
 
     if(meals){
+      meals.sort((a, b) => (a._id > b._id) ? -1 : 1)
       res.json(meals);
     }
 

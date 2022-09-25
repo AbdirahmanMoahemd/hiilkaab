@@ -7,6 +7,7 @@ const { Category } = require("../models/category");
 categoryRouter.get("/api/category", async (req, res) => {
   try {
     const categories = await Category.find({});
+    categories.sort((a, b) => (a._id > b._id) ? -1 : 1)
     res.json(categories);
   } catch (e) {
     res.status(500).json({ error: e.message });

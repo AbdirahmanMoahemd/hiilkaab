@@ -69,6 +69,7 @@ adminRouter.put("/admin/update-product", admin, async (req, res) => {
 adminRouter.get("/admin/get-products", admin, async (req, res) => {
   try {
     const products = await Product.find();
+    products.sort((a, b) => (a._id > b._id) ? -1 : 1)
     res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -89,6 +90,7 @@ adminRouter.post("/admin/delete-product", admin, async (req, res) => {
 adminRouter.get("/admin/get-orders", admin, async (req, res) => {
   try {
     const orders = await Order.find({});
+    orders.sort((a, b) => (a._id > b._id) ? -1 : 1)
     res.json(orders);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -99,6 +101,7 @@ adminRouter.get("/admin/get-orders", admin, async (req, res) => {
 adminRouter.get("/admin/get-orders/by-pindding", admin, async (req, res) => {
   try {
     const orders = await Order.find({status:0});
+    orders.sort((a, b) => (a._id > b._id) ? -1 : 1)
     res.json(orders);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -109,6 +112,7 @@ adminRouter.get("/admin/get-orders/by-pindding", admin, async (req, res) => {
 adminRouter.get("/admin/get-orders/by-process", admin, async (req, res) => {
   try {
     const orders = await Order.find({status:1});
+    orders.sort((a, b) => (a._id > b._id) ? -1 : 1)
     res.json(orders);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -119,6 +123,7 @@ adminRouter.get("/admin/get-orders/by-process", admin, async (req, res) => {
 adminRouter.get("/admin/get-orders/by-complete", admin, async (req, res) => {
   try {
     const orders = await Order.find({status:2});
+    orders.sort((a, b) => (a._id > b._id) ? -1 : 1)
     res.json(orders);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -133,6 +138,7 @@ adminRouter.get("/oders/search/:name", admin, async (req, res) => {
       userName: { $regex: req.params.name, $options: "i" },
     });
     if(orders){
+      orders.sort((a, b) => (a._id > b._id) ? -1 : 1)
       res.json(orders);
 
     }
