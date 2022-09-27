@@ -43,6 +43,12 @@ mongoose.connect(db_url).then( ()=>{
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, '0.0.0.0', ()=> {
+const server = app.listen(PORT, '0.0.0.0', ()=> {
     console.log(`connected at port ${PORT}`);
 })
+
+const io = require('socket.io')(server);
+
+io.on('Connection', client =>{
+    console.log('Connected Successfully', client.id);
+});
