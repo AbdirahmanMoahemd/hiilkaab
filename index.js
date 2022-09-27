@@ -51,4 +51,13 @@ const io = require('socket.io')(server);
 
 io.on('Connection', client =>{
     console.log('Connected Successfully', client.id);
+    client.on('disconnect', () => { 
+    console.log('Disconnected', client.id);
+        
+     });
+
+     client.on('message', (data) => { 
+        console.log(data);
+        client.broadcast.emit('message-receive', data) ; 
+         });
 });
