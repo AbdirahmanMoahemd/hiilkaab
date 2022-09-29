@@ -98,6 +98,16 @@ adminRouter.get("/admin/get-orders", admin, async (req, res) => {
 });
 
 
+adminRouter.get("/admin/get-recent-orders", admin, async (req, res) => {
+  try {
+    const orders = await Order.find({});
+    orders.sort((a, b) => (a._id > b._id) ? -1 : 1)
+    res.json(orders);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 adminRouter.get("/admin/get-orders/by-pindding", admin, async (req, res) => {
   try {
     const orders = await Order.find({status:0});
