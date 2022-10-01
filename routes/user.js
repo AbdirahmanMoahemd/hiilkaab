@@ -293,7 +293,7 @@ userRouter.post("/api/order", auth, async (req, res) => {
       let product = await Product.findById(cart[i].product._id);
       if (product.countInStock >= cart[i].quantity) {
         product.countInStock -= cart[i].quantity;
-        products.push({ product, quantity: cart[i].quantity, });
+        products.push({ product, quantity: cart[i].quantity,sizes:cart[i].sizes, colors: cart[i].colors  });
         await product.save();
       } else {
         return res
@@ -307,7 +307,7 @@ userRouter.post("/api/order", auth, async (req, res) => {
     for (let i = 0; i < cartMeal.length; i++) {
       let meal = await Meal.findById(cartMeal[i].meal._id);
       
-      meals.push({ meal, quantity: cartMeal[i].quantity, sizes:cart[i].sizes, colors: cart[i].colors });
+      meals.push({ meal, quantity: cartMeal[i].quantity, });
         await meal.save();
      
     }
