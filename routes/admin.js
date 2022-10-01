@@ -100,8 +100,8 @@ adminRouter.get("/admin/get-orders", admin, async (req, res) => {
 
 adminRouter.get("/admin/get-recent-orders", admin, async (req, res) => {
   try {
-    const orders = await Order.find({}).limit(25);
-    orders.sort((a, b) => (a._id > b._id) ? -1 : 1)
+    const orders = await Order.find({});
+    orders.sort((a, b) => (a._id > b._id) ? -1 : 1).limit(25)
     res.json(orders);
   } catch (e) {
     res.status(500).json({ error: e.message });
