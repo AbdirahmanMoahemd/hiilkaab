@@ -407,6 +407,7 @@ userRouter.post("/api/order/cod", auth, async (req, res) => {
 userRouter.get("/api/orders/me", auth, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user });
+    orders.sort((a, b) => (a._id > b._id) ? -1 : 1)
     res.json(orders);
   } catch (e) {
     res.status(500).json({ error: e.message });
