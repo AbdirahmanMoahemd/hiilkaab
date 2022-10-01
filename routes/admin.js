@@ -181,20 +181,48 @@ adminRouter.get("/admin/analytics", admin, async (req, res) => {
           orders[i].products[j].quantity * orders[i].products[j].product.price;
       }
     }
+
+    let cat1 ;
+    let cat2 ;
+    let cat3 ;
+    let cat4 ;
+    let cat5 ;
+
+    let cat1name ;
+    let cat2name ;
+    let cat3name ;
+    let cat4name ;
+    let cat5name ;
+
+  
+    const cat = await Category.find({});
+    for (let index = 0; index < cat.length; index++) {
+      const element = cat[index];
+      cat1 = await fetchCategoryWiseProduct(cat[0].name);
+      cat2 = await fetchCategoryWiseProduct(cat[1].name);
+      cat3 = await fetchCategoryWiseProduct(cat[2].name);
+      cat4 = await fetchCategoryWiseProduct(cat[3].name);
+      cat1name = cat[0].name;
+      cat2name =cat[1].name;
+      cat3name = cat[2].name;
+      cat4name =cat[3].name;
+      
+    }
+    
+     
     // CATEGORY WISE ORDER FETCHING
-    let mobileEarnings = await fetchCategoryWiseProduct("Mobiles");
-    let essentialEarnings = await fetchCategoryWiseProduct("Essentials");
-    let applianceEarnings = await fetchCategoryWiseProduct("Appliances");
-    let booksEarnings = await fetchCategoryWiseProduct("Books");
-    let fashionEarnings = await fetchCategoryWiseProduct("Fashion");
+    
 
     let earnings = {
       totalEarnings,
-      mobileEarnings,
-      essentialEarnings,
-      applianceEarnings,
-      booksEarnings,
-      fashionEarnings,
+      cat1,
+      cat2,
+      cat3,
+      cat4,
+      cat1name,
+      cat2name,
+      cat3name,
+      cat4name
     };
 
     res.json(earnings);
