@@ -63,6 +63,55 @@ mealRouter.post("/api/meals/store", async (req, res) => {
 });
 
 
+mealRouter.post("/api/meals/store/discounted", async (req, res) => {
+  try {
+    const { query } = req.body;
+    const meals = await Meal.find({storetype:query, isDiscounted:true});
+
+    if(meals){
+      meals.sort((a, b) => (a._id > b._id) ? -1 : 1)
+      res.json(meals);
+    }
+
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+mealRouter.post("/api/meals/store/av", async (req, res) => {
+  try {
+    const { query } = req.body;
+    const meals = await Meal.find({storetype:query, status:true});
+
+    if(meals){
+      meals.sort((a, b) => (a._id > b._id) ? -1 : 1)
+      res.json(meals);
+    }
+
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+mealRouter.post("/api/meals/store/un", async (req, res) => {
+  try {
+    const { query } = req.body;
+    const meals = await Meal.find({storetype:query, status:false});
+
+    if(meals){
+      meals.sort((a, b) => (a._id > b._id) ? -1 : 1)
+      res.json(meals);
+    }
+
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 mealRouter.post("/api/meals/bycategory", auth, async (req, res) => {
   try {
     const { query , query2} = req.body;
