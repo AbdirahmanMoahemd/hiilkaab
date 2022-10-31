@@ -30,6 +30,52 @@ mealRouter.get("/api/meals/:id", async (req, res) => {
   }
 });
 
+mealRouter.get("/meals/search/:name",  async (req, res) => {
+  try {
+    const meals = await Meal.find({
+      storetype:'restaurant',
+      name: { $regex: req.params.name, $options: "i" }
+    });
+    if (meals) {
+      
+      res.json(meals);
+    }
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+mealRouter.get("/meals/coffee/search/:name",  async (req, res) => {
+  try {
+    const meals = await Meal.find({
+      storetype:'coffee',
+      name: { $regex: req.params.name, $options: "i" }
+    });
+    if (meals) {
+      
+      res.json(meals);
+    }
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+mealRouter.get("/meals/sweets/search/:name",  async (req, res) => {
+  try {
+    const meals = await Meal.find({
+      storetype:'sweets',
+      name: { $regex: req.params.name, $options: "i" }
+    });
+    if (meals) {
+      
+      res.json(meals);
+    }
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 
 mealRouter.get("/meals/deal_of_day", async (req, res) => {
   try {
