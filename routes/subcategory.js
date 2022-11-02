@@ -16,7 +16,7 @@ subcategoryRouter.post("/api/subcategory/category", async (req, res) => {
   try {
     const { query } = req.body;
     const subcategories = await SubCategory.find({ category:query });
-    subcategories.sort((a, b) => (a._id > b._id) ? -1 : 1)
+   
     if(subcategories){
       res.json(subcategories);
     }
