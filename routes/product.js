@@ -266,6 +266,7 @@ productRouter.post("/api/rate-product", auth, async (req, res) => {
     product.ratings.push(ratingSchema);
     product.rating = rating;
     product = await product.save();
+    product.limit(15)
     res.json(product);
   } catch (e) {
     res.status(500).json({ error: e.message });
