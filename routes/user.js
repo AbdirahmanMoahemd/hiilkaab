@@ -324,6 +324,7 @@ userRouter.post("/api/order", auth, async (req, res) => {
       paymentMethod,
       totalPrice,
       address,
+      status: 1,
       userId: req.user,
       userName: userName,
       userPhone: userPhone,
